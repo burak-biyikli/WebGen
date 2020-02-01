@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			***TITLE***
+		</title>
+		***CSS***
+	</head>
+<body>
+	<div>
+		***NAV***
+	</div>
+	<div>
+		<h1>
+			***TITLE***
+		</h1>
+	</div>
+	<div>
+		***Summary***
+	</div>
+	<div>
+		***Body***
+	</div>
+
+</body>
+</html>
