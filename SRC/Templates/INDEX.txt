@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			***TITLE***
+		</title>
+		***CSS***
+	</head>
+<body>
+	<div>
+		***NAV***
+	</div>
+	<div>
+		***Index***
+	</div>
+	<div>
+		***Footer***
+	</div>
+</body>
+</html>

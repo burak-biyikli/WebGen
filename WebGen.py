@@ -211,7 +211,7 @@ def GenerateIndexElement(DataSnipets):
 	global GlobalSnippets
 	indexData = ""
 	for Dict in DataSnippets:
-		indexData = indexData + "<a href='"+ Domain+ "/"+ Dict["LOC"] + "'>"+Dict["TITLE"]+"</a>"
+		indexData = indexData + "<a href='"+ Domain+ "/"+ Dict["LOC"] + "'>"+Dict["TITLE"]+"</a>\n"
 	GlobalSnippets["Index"] = indexData 
 
 def GeneratePages(outPutdir, DataSnippets, templates):
