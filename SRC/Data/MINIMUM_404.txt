@@ -4,9 +4,9 @@
 
 
 ***TITLE***
-Burak's Pages
+404 Page not Found
 ***END***
 
-***DATA***
+***Body***
 Welcome to my website!
 ***END***

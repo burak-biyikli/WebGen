@@ -7,6 +7,10 @@ Main.html
 Burak's Pages
 ***END***
 
-***DATA***
+***Summary***
+Welcome to my website!
+***END***
+
+***Body***
 Welcome to my website!
 ***END***

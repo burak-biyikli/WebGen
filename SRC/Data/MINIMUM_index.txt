@@ -7,6 +7,6 @@ index.html
 Burak's Pages
 ***END***
 
-***DATA***
+***Body***
 Welcome to my website!
 ***END***
