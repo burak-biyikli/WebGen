@@ -1,0 +1,12 @@
+***LOC***
+404.html
+***END***
+
+
+***TITLE***
+Burak's Pages
+***END***
+
+***DATA***
+Welcome to my website!
+***END***
