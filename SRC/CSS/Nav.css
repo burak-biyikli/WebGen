@@ -4,7 +4,11 @@
   overflow: hidden;
   padding: 0px 0px;
   width:100%; 
-  min-height: 4vh;
+}
+
+.topnav *{
+  min-height: 100%;
+  font-size: 18px;
 }
 
 /* Style the links inside the navigation bar */
@@ -13,10 +17,9 @@
   display: block;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  vertical-align: middle;
+  padding: 16px 16px;
   text-decoration: none;
-  font-size: 17px;
-  min-height: 4vh;
 }
 
 /* Change the color of links on hover */

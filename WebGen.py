@@ -7,6 +7,7 @@ SRC = "SRC"
 
 CSS = "CSS"
 JS = "Scripts"
+RES = "Resources"
 DATA = "Data"
 TEMPLATES = "Templates"
 GLOBALS = "Globals"
@@ -146,6 +147,14 @@ def CopyJS( JSdirectory, GENDirectory ):
 		if (os.path.isfile( JSFile )):
 			shutil.copy(JSFile, GENDirectory)
 
+def CopyRES( RESdirectory, GENDirectory ):
+	print("Copying Resource Files")
+	RESFileNames = os.listdir(RESdirectory)
+	for F in RESFileNames:
+		RESFile = os.path.join(RESdirectory, F)
+		if (os.path.isfile( RESFile )):
+			shutil.copy(RESFile, GENDirectory)
+
 #Proccess all templates into template objects 
 def ProcessIntoTemplates(directory):
 	templates = []
@@ -267,9 +276,12 @@ if __name__ == "__main__":
 	print("Proccessing CSS Files")
 	ProcessCSS( os.path.join(SaveDir, SRC, CSS), os.path.join(SaveDir, GEN) )
 
-	#Creates CSS Element
+	#Creates JS Element
 	print("Proccessing JS Files")
 	ProcessJS( os.path.join(SaveDir, SRC, JS), os.path.join(SaveDir, GEN) )
+
+	#Copy over Resources
+	CopyRES( os.path.join(SaveDir, SRC, RES), os.path.join(SaveDir, GEN) )
 
 	print("Creating Templates from files in: " + os.path.join(SaveDir, GEN) )
 	templates = ProcessIntoTemplates( os.path.join(SaveDir, SRC, TEMPLATES) )

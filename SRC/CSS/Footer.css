@@ -16,6 +16,10 @@
   font-size: 17px;
 }
 
+#FooterContent *{
+  color: #eeeeee;
+}
+
 @media screen and (max-width: 400px) {
   #FooterContent {
     width: 95%;
