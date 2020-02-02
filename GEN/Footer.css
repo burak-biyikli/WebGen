@@ -1,0 +1,26 @@
+#Footer {
+  background-color: #333;
+  min-height: 40vh;
+}
+
+#FooterContent {
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-top: 30px; 
+  text-align: center;
+  color: #eeeeee;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+@media screen and (max-width: 400px) {
+  #FooterContent {
+    width: 95%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

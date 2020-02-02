@@ -1,0 +1,21 @@
+body {
+  margin: 0px 0px;
+  background-color: #f9ffe0;
+}
+
+#ContentBody {
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 56vh;
+}
+
+@media screen and (max-width: 400px) {
+  #ContentBody {
+    width: 95%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

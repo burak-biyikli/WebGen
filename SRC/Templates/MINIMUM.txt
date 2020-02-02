@@ -11,8 +11,10 @@
 	<div>
 		***NAV***
 	</div>
-	<div>
-		***Body***
+	<div id="ContentBody">
+		<div>
+			***Body***
+		</div>
 	</div>
 	<div>
 		***Footer***
