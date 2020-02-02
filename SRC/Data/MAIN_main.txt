@@ -12,5 +12,5 @@ Welcome to my website!
 ***END***
 
 ***Body***
-Welcome to my website!
+It would be a polite way of puting things that this site is under construction right now... so mind the mess.
 ***END***

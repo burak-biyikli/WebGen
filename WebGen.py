@@ -6,6 +6,7 @@ GEN = "GEN"
 SRC = "SRC"
 
 CSS = "CSS"
+JS = "Scripts"
 DATA = "Data"
 TEMPLATES = "Templates"
 GLOBALS = "Globals"
@@ -106,7 +107,7 @@ def CreateClaimedFolderToken(directory):
 		claim.write("This directory is claimed and is subject to being deleted in full")
 
 #Create a html snippet that will link in the template
-def ProcessCSS(CSSdirectory, GENdirectory):
+def ProcessCSS(CSSdirectory, GENDirectory):
 	global GlobalSnippets
 	CSSFileNames = os.listdir(CSSdirectory)
 	CSSString = ""
@@ -115,16 +116,35 @@ def ProcessCSS(CSSdirectory, GENdirectory):
 			continue
 		CSSString = "".join( [CSSString, '<link rel="stylesheet" href=', CSSFile ,'>\n'] )
 	GlobalSnippets["CSS"] = CSSString
-	CopyCSS(CSSdirectory,GENdirectory)
+	CopyCSS(CSSdirectory,GENDirectory)
 
 #Move css files to GEN
-def CopyCSS(CSSdirectory, GENdirectory):
+def CopyCSS(CSSdirectory, GENDirectory):
 	print("Copying CSS Files")
 	CSSFileNames = os.listdir(CSSdirectory)
 	for F in CSSFileNames:
 		CSSFile = os.path.join(CSSdirectory, F)
 		if (os.path.isfile( CSSFile )):
-			shutil.copy(CSSFile, GENdirectory)
+			shutil.copy(CSSFile, GENDirectory)
+
+def ProcessJS( JSdirectory, GENDirectory ):
+	global GlobalSnippets
+	JSFileNames = os.listdir(JSdirectory)
+	JSString = ""
+	for JSFile in JSFileNames:
+		if ( not JSFile[-3:].lower() == ".js"):
+			continue
+		JSString = "".join([ JSString, '<script src="', JSFile ,'"></script>\n' ])
+	GlobalSnippets["JS"] = JSString
+	CopyJS( JSdirectory, GENDirectory )
+
+def CopyJS( JSdirectory, GENDirectory ):
+	print("Copying JS Files")
+	JSFileNames = os.listdir(JSdirectory)
+	for F in JSFileNames:
+		JSFile = os.path.join(JSdirectory, F)
+		if (os.path.isfile( JSFile )):
+			shutil.copy(JSFile, GENDirectory)
 
 #Proccess all templates into template objects 
 def ProcessIntoTemplates(directory):
@@ -211,7 +231,7 @@ def GenerateIndexElement(DataSnipets):
 	global GlobalSnippets
 	indexData = ""
 	for Dict in DataSnippets:
-		indexData = indexData + "<a href='"+ Domain+ "/"+ Dict["LOC"] + "'>"+Dict["TITLE"]+"</a>\n"
+		indexData = indexData + "<a href='"+ "/"+ Dict["LOC"] + "'>"+Dict["TITLE"]+"</a> <br>"
 	GlobalSnippets["Index"] = indexData 
 
 def GeneratePages(outPutdir, DataSnippets, templates):
@@ -246,6 +266,10 @@ if __name__ == "__main__":
 	#Creates CSS Element
 	print("Proccessing CSS Files")
 	ProcessCSS( os.path.join(SaveDir, SRC, CSS), os.path.join(SaveDir, GEN) )
+
+	#Creates CSS Element
+	print("Proccessing JS Files")
+	ProcessJS( os.path.join(SaveDir, SRC, JS), os.path.join(SaveDir, GEN) )
 
 	print("Creating Templates from files in: " + os.path.join(SaveDir, GEN) )
 	templates = ProcessIntoTemplates( os.path.join(SaveDir, SRC, TEMPLATES) )

@@ -8,5 +8,5 @@
 ***END***
 
 ***Body***
-Welcome to my website!
+You seemed to have wondered to somewhere I haven't built yet. Sorry about that.
 ***END***
