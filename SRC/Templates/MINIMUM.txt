@@ -5,6 +5,7 @@
 			***TITLE***
 		</title>
 		***CSS***
+		***JS***
 	</head>
 <body>
 	<div>
