@@ -3,7 +3,7 @@
 <div id="Footer">
 	<div id="FooterContent">
 	Made by Burak Biyikli<br>
-	Find me on <a href="https://www.linkedin.com/in/burak-biyikli/">linkedin</a><br>
+	Find me on <a href="https://www.linkedin.com/in/burak-biyikli/">linkedin</a> or see my <a href="/Resume.html">Resume</a><br>
 	Copyright 2019-2020
 	</div>
 </div>

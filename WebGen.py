@@ -96,7 +96,10 @@ def ClearOutputFolder(directory):
 		print("")
 		input("Operation will delete folders, press enter to continue...")
 		for filename in FileNames:
-			os.unlink(os.path.join(directory,filename))
+			if "." in filename:
+				os.unlink(os.path.join(directory,filename))
+			else:
+				shutil.rmtree( os.path.join(directory,filename) )
 		return True
 	elif ( len(FileNames) == 0):
 		return True
@@ -149,6 +152,11 @@ def CopyJS( JSdirectory, GENDirectory ):
 
 def CopyRES( RESdirectory, GENDirectory ):
 	print("Copying Resource Files")
+	try:
+		os.mkdir(GENDirectory)
+	except OSError:
+		print("Failed to create res dir")
+
 	RESFileNames = os.listdir(RESdirectory)
 	for F in RESFileNames:
 		RESFile = os.path.join(RESdirectory, F)
@@ -281,7 +289,7 @@ if __name__ == "__main__":
 	ProcessJS( os.path.join(SaveDir, SRC, JS), os.path.join(SaveDir, GEN) )
 
 	#Copy over Resources
-	CopyRES( os.path.join(SaveDir, SRC, RES), os.path.join(SaveDir, GEN) )
+	CopyRES( os.path.join(SaveDir, SRC, RES), os.path.join(SaveDir, GEN, RES) )
 
 	print("Creating Templates from files in: " + os.path.join(SaveDir, GEN) )
 	templates = ProcessIntoTemplates( os.path.join(SaveDir, SRC, TEMPLATES) )

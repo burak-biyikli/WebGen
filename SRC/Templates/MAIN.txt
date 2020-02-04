@@ -17,9 +17,11 @@
 				***TITLE***
 			</h1>
 		</div>
+		<br>
 		<div>
 			***Summary***
 		</div>
+		<br>
 		<div>
 			***Body***
 		</div>
