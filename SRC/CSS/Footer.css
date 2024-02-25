@@ -13,16 +13,15 @@
   text-align: center;
   color: #eeeeee;
   text-decoration: none;
-  font-size: 17px;
 }
 
 #FooterContent *{
   color: #eeeeee;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
   #FooterContent {
-    width: 95%;
+    width: 97.25%;
     display: block;
     margin-left: auto;
     margin-right: auto;
