@@ -1,5 +1,5 @@
 ***LOC***
-Main.html
+index.html
 ***END***
 
 
