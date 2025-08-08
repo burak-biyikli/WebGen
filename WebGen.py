@@ -180,7 +180,6 @@ def ProccessGlobalSnippets(directory):
 		with open( os.path.join(directory,file), "r") as f:
 			inData = False
 			GSNewTag = None #Will be current tag
-			print(f)
 			for line in f:
 				if (inData):
 					if (DELIMTER in line):

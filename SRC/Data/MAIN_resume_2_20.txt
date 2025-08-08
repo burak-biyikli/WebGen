@@ -1,5 +1,5 @@
 ***LOC***
-MAIN_resume_2_20.html
+resume_2_20.html
 ***END***
 
 ***TITLE***
