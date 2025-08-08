@@ -1,8 +1,8 @@
 ***NAV***
 <div class="topnav" id="myTopnav">
-  <a href="/WebGen/Main.html" class="active">Home</a>
-  <a href="/WebGen/Resume.html">Resume</a>
-  <a href="/WebGen/siteindex.html">All Pages</a>
+  <a href="/Main.html" class="active">Home</a>
+  <a href="/Resume.html">Resume</a>
+  <a href="/siteindex.html">All Pages</a>
   <a href="javascript:void(0);" class="icon" onclick="topNav()">&#9776;</a>
 </div>
 ***END***
