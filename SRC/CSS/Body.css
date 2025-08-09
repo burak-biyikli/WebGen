@@ -1,41 +1,88 @@
 html {
   margin: 0px 0px;
   background-color: #333;
-  font-size: 2vw;
   width: 100%;
+  /* Set a base font size that scales fluidly between 16px and 22px */
+  font-size: clamp(16px, 1.6vw, 22px);
 }
 
 body {
   margin: 0px 0px;
   background-color: #fff;
   width: 100%;
+  /* Set a default line height for better readability */
+  line-height: 1.6;
+}
+
+p {
+  text-indent: 1.5em;
 }
 
 #ContentBody {
   background-color: #f6f6ef;
-
   width: 70%;
   display: block;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: auto; /* Use auto for centering */
+  margin-right: auto; /* Use auto for centering */
   min-height: 50vh;
-
-  padding-top: 15px;
-  padding-right: 5%;
-  padding-left: 5%;
-  padding-bottom: 30px;
+  padding: 15px 5% 30px 5%; /* Consolidate padding rules */
+  font-size: 1rem; /* Use rem to scale with the root html element */
 }
 
+/* Set responsive sizes for headings */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+h1 { font-size: clamp(2.0rem, 5vw, 3.0rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.5rem, 3.5vw, 2.0rem); }
+h4 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+
+
 @media screen and (max-width: 768px) {
-  html {
-    font-size: 2.7vw;
-  }
+  /* Adjust the layout for smaller screens */
   #ContentBody {
     width: 90%;
-    display: block;
     margin-left: 3%;
     margin-right: 3%;
     padding-right: 2%;
     padding-left: 2%;
   }
+}
+
+
+.feed-container {
+  background-color: #e8e8e3; /* A slightly different background */
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+.feed-container h3 {
+  margin-top: 5px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.feed-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.feed-item:last-child {
+  border-bottom: none; /* Remove border from the last item */
+}
+
+.feed-item h4 {
+  margin: 0 0 5px 0;
+}
+
+.feed-item p {
+  margin: 0;
+  font-size: 0.9em; /* Make preview text slightly smaller */
+  color: #555;
 }

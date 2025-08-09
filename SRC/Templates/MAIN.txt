@@ -26,6 +26,9 @@
 		<div>
 			***Body***
 		</div>
+		<div>
+			***Feed***
+		</div>
 	</div>
 	<div>
 		***Footer***

@@ -203,17 +203,35 @@ def ProccessGlobalSnippets(directory):
 						GlobalSnippets[GSNewTag] = ""
 						inData = True
 
-def InterpretDataSnippets(directory):
-	FileList = os.listdir(directory)
-	Snippets = []
-	for file in FileList:
-		if ( file[-4:] == ".txt"):
-			Dict = InterpretDataSnippet(os.path.join(directory,file))
-			Dict["TemplateName"] = file[:file.find("_")]
-			Dict["LOC"]=Dict["LOC"].strip()
-			Dict["TITLE"]=Dict["TITLE"].strip()
-			Snippets.append(Dict)
-	return Snippets
+# Reads all .txt data files from a directory, sorts them by modification
+# time (newest first), and processes them into a list of dictionaries.
+def InterpretDataSnippets(directory: str) -> list:
+    data_files = []
+    for filename in os.listdir(directory):
+        if filename.endswith(".txt"):
+            file_path = os.path.join(directory, filename)
+            # Get the modification time of the file
+            mod_time = os.path.getmtime(file_path)
+            data_files.append((mod_time, file_path, filename))
+
+    # Sort the files by modification time in descending order (newest first)
+    data_files.sort(key=lambda x: x[0], reverse=True)
+
+    data_snippets = []
+    for mod_time, file_path, filename in data_files:
+        
+        # Ensure required keys exist and strip whitespace
+        snippet_dict = InterpretDataSnippet(file_path)
+        for key in ["LOC", "TITLE"]:
+            assert key in snippet_dict, f"Error: Expected {key} in template file {filename}. Saw {snippet_dict}"
+            snippet_dict[key] = snippet_dict[key].strip()
+            
+        #Add required attributes, then add to the data_snippets array
+        snippet_dict["TemplateName"] = filename[:filename.find("_")]
+        snippet_dict["ModTime"] = mod_time
+        data_snippets.append(snippet_dict)
+
+    return data_snippets
 
 def InterpretDataSnippet(FilePath):
 	DataSnippet = {}
@@ -252,6 +270,39 @@ def GenerateIndexElement(DataSnipets):
 	for Dict in DataSnippets:
 		indexData = indexData + "<a href='"+ "/"+ Dict["LOC"] + "'>"+Dict["TITLE"]+"</a> <br>"
 	GlobalSnippets["Index"] = indexData 
+
+
+# Removes HTML tags and comments from a string using regular expressions.
+# Will remove items similar to <b> <div> </div> and &rarr;
+def StripHTML(HTML_Text: str) -> str:    
+    cleaner = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
+    clean_text = re.sub(cleaner, '', HTML_Text)
+    return clean_text
+
+# Generates an HTML feed of the most recent pages. Expects DataSnippets to be in order from most to least recent
+def GenerateFeedElement(DataSnippets: list, num_items: int = 5, max_length: int = 60):
+    global GlobalSnippets
+    feed_html = ""
+    for i, snippet in enumerate(DataSnippets[:num_items]):
+        
+        # Get the body text, or an empty string if it doesn't exist
+        base_text = snippet.get("Summary","") + snippet.get("Body", "")
+        
+        # Clean and truncate the body text for the preview
+        plain_text = StripHTML(base_text).strip()
+        plain_text = " ".join( plain_text.split() )
+        preview_text = (plain_text[:max_length] + '...')
+        
+        # Create the HTML for this feed item
+        feed_html += f"""\
+<div class="feed-item">
+    <h4><a href="/{snippet['LOC']}">{snippet['TITLE']}</a></h4>
+    <p>{preview_text}</p>
+</div>
+"""
+    # Wrap the entire output in a container
+    GlobalSnippets["Feed"] = f'<br><br><br><hr><div class="feed-container"><h3>Recent Updates</h3>{feed_html}</div>'
+
 
 def GeneratePages(outPutdir, DataSnippets, templates):
 	for DataSnippet in DataSnippets:
@@ -309,7 +360,11 @@ if __name__ == "__main__":
 
 	print("Generating Index Element from snippets")
 	GenerateIndexElement(DataSnippets)
-	print("Global Snipets: "+ str(GlobalSnippets))
+	print("Generating Feed Element from snippets")
+	GenerateFeedElement(DataSnippets)
+	print("Global Snipets: ")
+	for s in GlobalSnippets:
+		print(f"\t{s}:{str(GlobalSnippets[s])}")
 
 	print("Generating Web pages to: " + os.path.join(SaveDir, GEN))
 	GeneratePages(os.path.join(SaveDir, GEN), DataSnippets, templates)
