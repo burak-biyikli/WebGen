@@ -7,37 +7,23 @@ This Site's Story
 ***END***
 
 ***Summary***
-I was never a web devloper. But I was always intrested in making something of my own online.
+This site wasn't built by a professional web developer. It runs on a custom-built generator and over a decade of curiosity.
 ***END***
 
 ***Body***
 
-There are far better ways to have made the website you are on today than what I have done. And that is not to put down github pages, but instead to say that the custom static website generator used to make this page is mainly kept for sentimental reasons.
+You might be aware of the many options for static website generators and content management systems out there. It would be comical to claim the one I use to build this page is the best, but it is kept online for sentimental reasons. It’s a snapshot of a long learning process.
 
-For better and for worse I have been online since a young age. Although I don't know if this would have been good for everyone, I think I have good friends, memories, and learnings from my time online. One part of this was being curious with what it would take to put something of my own online.
+For better and for worse, I’ve been online since I was young. I have good friends, memories, and lessons from my time on the internet. Part of that was a deep curiosity about what it would take to put something of my own online. I remember setting up my first Google Site back in middle school, sometime around 2012. It was a simple collection of simple pages, but it sparked a desire to have my own site running in a way I fully understood. I started to learn about HTML to make things look better, and I started to read tutorials that mentioned domain names and hosting. I tried to learn what DNS entailed, but ultimately I wasn't able to get first-hand experience because I was too young to have a Visa or Mastercard.
 
-I remember setting up my first google site. It was a simple site both personally and for school. Looking at the timeline this must of been between 2008 and 2017. My vauge recollection is creating websites both for school work and on my personal time during middle school.
+A couple of years later, around 2014, I was older and had more opportunities to learn. I helped family and friends of family make websites with tools like Squarespace and WordPress. I was also able to take an IT course that taught me to write raw HTML. This was a big step up from just using links and styles on Google Sites. I looked into how WordPress worked, hoping I could run it myself, but the complexities of cloud hosting once again seemed out of reach. My first real "success" came when I found XAMPP, which allowed me to run a server on my own computer. I still remember the challenge of figuring out port forwarding and finding my own IP address. It all paid off seeing my site on another device than just my laptop, and returned dividends when I had my friend type my IP address while we were on a Skype call.
 
-I remember wanting to get a custom domain for my site, and trying to learn what DNS entailed. At the end I was lamenting the fact that I did not have the money to buy a domain to actually make this work.
+As I made more pages, I spent more time on repetitive tasks and started to see the value in template systems. The problem was, I didn't have strong programming skills yet. I had created some simple programs in Java and Lua, and read some guides on Python. I tried to learn Django, and later Flask, but found anything beyond rigidly following a tutorial to be beyond my abilities. I just did not have the experience with libraries, datastructures, or even the basics of the languages I was using to really make progress with real tools. Although it is foolish to reinvent the wheel, sometimes we need to reinvent things to make an opportunity and reason to learn. Since I couldn't understand what I was doing in the tutorials, I ended up slowly building something of my own. This helped me learn Python, a language I still use today.
 
-Around highschool there started to be more of an opurtunity to really do more. I helped some friends and family make websites with applications like squarespace and wordpress. I also took a course that taught IT basics that was meant to prep you for a comptia certification. In that course I wrote multiple pages of straight HTML as part of excersises to learn formating, which was a big step up from only really using the links and markdown from my old site.
+Over the years, I would come back to my static site generator in fits and starts. This is probably the oldest project I still have. The biggest change came late in my undergrad when I got $100 of free Azure credit, bought a domain, and finally got my website properly online. Later, I set up a free CDN to get HTTPS working. Similarly, this project was a good excuse to practice using Git.
 
-I looked into how the wordpress site was running, because it looked like software that I could download. Looking into cloud hosting once again thwarted me from being able to setup something for my own. I ended up finding some articles talking about XAMPP which was my first real 'success' getting something of 'my own' working.
+Recently, after Azure deprecated some of the SaaS tools I was using for hosting, I decided to move the website to GitHub Pages. It was remarkable how easy it was to get everything running compared to just four years ago. I believe that everything is difficult until you've done it. The first time you try anything, it will look daunting.
 
-I remember feeling like port forwarding and finding my own IP address was a big challenege. But seeing my own site on another device, and then having someone else able to see it at their home was very gratifying.
-
-My website was very janky, and did not really have anything worth seeing on it. As I made more pages, I ended up spending more time churning and started to see more of the value offered in template systems.
-
-To be clear, at this time I did not have good programing skills. This places it before my first year of highschool. I had read some Java and Lua tutorials. I think the most 'impressive' program I made was one to find prime numbers in Lua. Unforutnately I did not really know how to use a for loop in lua, so the code was comically bad. I read good things about python, and I wanted to learn it.
-
-I remember reading good things about Django which seems like it would solve my problems and not really 'getting it'. Prehaphs it was my lack of knowelege of datastructures and interfaces making it hard to even understand what was going on with libraries.
-
-A similar story happened with me and Flask when that looked like a new thing. I was able to copy the work done in tutorials but couldn't really make something of my own.
-
-This was how I first ended up making my own libary to automate making the static websites I used to try to make when I was younger.
-
-Over the years I would come back and edit my old code in fits and starts. The biggest change was late in my undergrad when I got 100 dollars of free azure credit, and bought a domain to get my website online. After that I setup a free CDN so that I could get HTTPS working on the website. I was worried about the mechanics of it and never put much content up in the end because I didn't feel I had anything worth sharing, and maybe I still don't. 
-
-After changes to automatic certificate generation, and CDN changes from akami for Azure, I decided to move the website to github pages. It was kind of remarkable how easy it was to setup hosting and get a certificate compared to 4 years ago. I wonder how much it was the proceess changing versus how much I changed. 
+This website has been online in some form or another for at least a decade, and I didn't put much content up for a long time. I felt I didn't have anything worth sharing, and worse than that, I kept moving the goalposts. I told myself that maybe once I finished the next class, or worked another job, what I thought about writing would be worth sharing. But the truth, in the end, is that people don't get good by waiting. You just have to make something and see.
 
 ***END***
