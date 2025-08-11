@@ -29,6 +29,10 @@
 		<div>
 			***Feed***
 		</div>
+		<div>
+			This page was edited on:
+			***MODTIME***
+		</div>
 	</div>
 	<div>
 		***Footer***

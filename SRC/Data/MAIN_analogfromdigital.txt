@@ -55,5 +55,5 @@ Power: Your filter might limit the output impedance to a degree comparable to a 
 ***END***
 
 ***MODTIME***
-August 10, 2025, 04:39 AM
+August 10, 2025, 01:01 AM
 ***END***

@@ -234,7 +234,7 @@ def InterpretDataSnippets(directory: str) -> list:
 				data_snippets.append(snippet_dict)
 
 	# Sort the list of dictionaries by the MODTIME key in descending order
-	data_snippets.sort(key=lambda x: x.get("MODTIME", datetime.min), reverse=True)
+	data_snippets.sort(key=lambda x: x.get("MODTIMESTAMP", datetime.min), reverse=True)
 
 	return data_snippets
 
@@ -315,11 +315,14 @@ def InterpretDataSnippet(FilePath):
 	if "MODTIME" in DataSnippet:
 		parsed_time = ParseTimestamp(DataSnippet["MODTIME"])
 		assert not(parsed_time is None), f"Fatal: Could not parse MODTIME in {FilePath} saw {DataSnippet['MODTIME']}"
-		DataSnippet["MODTIME"] = parsed_time
+		DataSnippet["MODTIMESTAMP"] = parsed_time
 	else:
 		mod_time = os.path.getmtime(FilePath)
-		DataSnippet["MODTIME"] = datetime.fromtimestamp(mod_time)
+		DataSnippet["MODTIMESTAMP"]= datetime.fromtimestamp(mod_time)
+		DataSnippet["MODTIME"]     = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y, %I:%M %p')
 		AppendMissingTimestamp(FilePath, mod_time) # The function we discussed before
+
+	
 
 	return DataSnippet
 
