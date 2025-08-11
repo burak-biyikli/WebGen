@@ -3,6 +3,7 @@
 import os
 import re
 import shutil
+from datetime import datetime
 
 GEN = "GEN"
 SRC = "SRC"
@@ -152,18 +153,17 @@ def CopyJS( JSdirectory, GENDirectory ):
 		if (os.path.isfile( JSFile )):
 			shutil.copy(JSFile, GENDirectory)
 
-def CopyRES( RESdirectory, GENDirectory ):
+# Recursively copies the entire contents of the resource directory.
+# Asserts that the destination does not exist before copying.
+def CopyRES(RESdirectory, GENDirectory):
+   
 	print("Copying Resource Files")
-	try:
-		os.mkdir(GENDirectory)
-	except OSError:
-		print("Failed to create res dir")
+	# This assertion ensures we don't accidentally copy into an existing folder.
+	# The ClearOutputFolder function should prevent this, but this is a good safeguard.
+	assert not os.path.exists(GENDirectory), f"Fatal: Resource destination {GENDirectory} already exists. Aborting."
+	
+	shutil.copytree(RESdirectory, GENDirectory)
 
-	RESFileNames = os.listdir(RESdirectory)
-	for F in RESFileNames:
-		RESFile = os.path.join(RESdirectory, F)
-		if (os.path.isfile( RESFile )):
-			shutil.copy(RESFile, GENDirectory)
 
 #Proccess all templates into template objects 
 def ProcessIntoTemplates(directory):
@@ -203,36 +203,80 @@ def ProccessGlobalSnippets(directory):
 						GlobalSnippets[GSNewTag] = ""
 						inData = True
 
+
 # Reads all .txt data files from a directory, sorts them by modification
 # time (newest first), and processes them into a list of dictionaries.
 def InterpretDataSnippets(directory: str) -> list:
-    data_files = []
-    for filename in os.listdir(directory):
-        if filename.endswith(".txt"):
-            file_path = os.path.join(directory, filename)
-            # Get the modification time of the file
-            mod_time = os.path.getmtime(file_path)
-            data_files.append((mod_time, file_path, filename))
+	data_files = []
+	for filename in os.listdir(directory):
+		if filename.endswith(".txt"):
+			file_path = os.path.join(directory, filename)
+			# Get the modification time of the file
+			mod_time = os.path.getmtime(file_path)
+			data_files.append((mod_time, file_path, filename))
 
-    # Sort the files by modification time in descending order (newest first)
-    data_files.sort(key=lambda x: x[0], reverse=True)
+	# Sort the files by modification time in descending order (newest first)
+	data_files.sort(key=lambda x: x[0], reverse=True)
 
-    data_snippets = []
-    for mod_time, file_path, filename in data_files:
-        
-        # Ensure required keys exist and strip whitespace
-        snippet_dict = InterpretDataSnippet(file_path)
-        for key in ["LOC", "TITLE"]:
-            assert key in snippet_dict, f"Error: Expected {key} in template file {filename}. Saw {snippet_dict}"
-            snippet_dict[key] = snippet_dict[key].strip()
-            
-        #Add required attributes, then add to the data_snippets array
-        snippet_dict["TemplateName"] = filename[:filename.find("_")]
-        snippet_dict["ModTime"] = mod_time
-        data_snippets.append(snippet_dict)
+	data_snippets = []
+	# os.walk will traverse the directory tree for us
+	for dirpath, _, filenames in os.walk(directory):
+		for filename in filenames:
+			if filename.endswith(".txt"):
+				file_path = os.path.join(dirpath, filename)		
+				snippet_dict = InterpretDataSnippet(file_path) # Ensure required keys exist and strip whitespace
+				for key in ["LOC", "TITLE"]:
+					assert key in snippet_dict, f"Error: Expected {key} in template file {filename}. Saw {snippet_dict}"
+					snippet_dict[key] = snippet_dict[key].strip()
+					
+				#Add required attributes, then add to the data_snippets array
+				snippet_dict["TemplateName"] = filename[:filename.find("_")]
+				data_snippets.append(snippet_dict)
 
-    return data_snippets
+	# Sort the list of dictionaries by the MODTIME key in descending order
+	data_snippets.sort(key=lambda x: x.get("MODTIME", datetime.min), reverse=True)
 
+	return data_snippets
+
+# Attempts to parse a timestamp string from one of two formats:
+# 1. 'M/D/YYYY, HH:MM am/pm'
+# 2. 'M/D/YYYY'
+# Returns a datetime object or None if parsing fails.
+def ParseTimestamp(time_str: str) -> datetime | None:
+	time_str = time_str.strip()
+	try:
+		if ":" in time_str:
+			return datetime.strptime(time_str, '%B %d, %Y, %I:%M %p')
+		else:
+			return datetime.strptime(time_str, '%B %d, %Y')
+	except ValueError:
+		return None
+	
+# Appends a MODTIME section to a data file. This needs to be readable by ParseTimestamp()
+def AppendMissingTimestamp(file_path: str, mod_time: float):
+	# Format the timestamp into a readable string
+	timestamp_str = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y, %I:%M %p')
+	print(f"Info: '{os.path.basename(file_path)}' is missing a timestamp. Appending one now.")
+	with open(file_path, 'a') as f:
+		f.write(f"\n***MODTIME***\n{timestamp_str}\n***END***\n")
+  
+
+# Wraps text blocks in <p> tags, ignoring blocks that look like HTML.
+# A block is any text separated by one or more blank lines (2+ \n).  
+def AutoParagraph(text: str) -> str:
+	if not text:
+		return ""
+	paragraphs = []
+	blocks = re.split(r'\n\s*\n', text.strip())
+	for block in blocks:
+		stripped_block = block.strip()
+		if stripped_block.startswith('<') or stripped_block.endswith('>'):
+			paragraphs.append(stripped_block)
+		else:
+			paragraphs.append(f"<p>{stripped_block}</p>")
+	return "\n\n".join(paragraphs)
+
+	
 def InterpretDataSnippet(FilePath):
 	DataSnippet = {}
 	with open( FilePath, "r") as DataFile:
@@ -262,6 +306,21 @@ def InterpretDataSnippet(FilePath):
 					DataSnippet[NewTag] = ""
 					inData = True
 		DataFile.close()
+	
+	# Auto-paragraph the body text
+	if "Body" in DataSnippet:
+		DataSnippet["Body"] = AutoParagraph(DataSnippet["Body"])
+			
+	# After parsing, check for the MODTIME tag
+	if "MODTIME" in DataSnippet:
+		parsed_time = ParseTimestamp(DataSnippet["MODTIME"])
+		assert not(parsed_time is None), f"Fatal: Could not parse MODTIME in {FilePath} saw {DataSnippet['MODTIME']}"
+		DataSnippet["MODTIME"] = parsed_time
+	else:
+		mod_time = os.path.getmtime(FilePath)
+		DataSnippet["MODTIME"] = datetime.fromtimestamp(mod_time)
+		AppendMissingTimestamp(FilePath, mod_time) # The function we discussed before
+
 	return DataSnippet
 
 def GenerateIndexElement(DataSnipets):
@@ -274,38 +333,38 @@ def GenerateIndexElement(DataSnipets):
 
 # Removes HTML tags and comments from a string using regular expressions.
 # Will remove items similar to <b> <div> </div> and &rarr;
-def StripHTML(HTML_Text: str) -> str:    
-    cleaner = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
-    clean_text = re.sub(cleaner, '', HTML_Text)
-    return clean_text
+def StripHTML(HTML_Text: str) -> str:	
+	cleaner = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
+	clean_text = re.sub(cleaner, '', HTML_Text)
+	return clean_text
 
 # Generates an HTML feed of the most recent pages. Expects DataSnippets to be in order from most to least recent
 def GenerateFeedElement(DataSnippets: list, num_items: int = 5, max_length: int = 100):
-    global GlobalSnippets
-    feed_html = ""
-    for i, snippet in enumerate(DataSnippets[:num_items]):
-        
-        # Get the body text, or an empty string if it doesn't exist
-        base_text = snippet.get("Summary","") + snippet.get("Body", "")
-        
-        # Clean and truncate the body text for the preview
-        plain_text = StripHTML(base_text).strip()
-        plain_text = " ".join( plain_text.split() )
-        
-        if len(plain_text) == 0:
-        	preview_text = "No preview avalible for this page..."
-        else:
-	        preview_text = (plain_text[:(max_length-3)] + '...')
-        
-        # Create the HTML for this feed item
-        feed_html += f"""\
+	global GlobalSnippets
+	feed_html = ""
+	for i, snippet in enumerate(DataSnippets[:num_items]):
+		
+		# Get the body text, or an empty string if it doesn't exist
+		base_text = snippet.get("Summary","") + snippet.get("Body", "")
+		
+		# Clean and truncate the body text for the preview
+		plain_text = StripHTML(base_text).strip()
+		plain_text = " ".join( plain_text.split() )
+		
+		if len(plain_text) == 0:
+			preview_text = "No preview avalible for this page..."
+		else:
+			preview_text = (plain_text[:(max_length-3)] + '...')
+		
+		# Create the HTML for this feed item
+		feed_html += f"""\
 <div class="feed-item">
-    <h4><a href="/{snippet['LOC']}">{snippet['TITLE']}</a></h4>
-    <p>{preview_text}</p>
+	<h4><a href="/{snippet['LOC']}">{snippet['TITLE']}</a></h4>
+	<p>{preview_text}</p>
 </div>
 """
-    # Wrap the entire output in a container
-    GlobalSnippets["Feed"] = f'<br><br><br><hr><div class="feed-container"><h3>Recent Updates</h3>{feed_html}</div>'
+	# Wrap the entire output in a container
+	GlobalSnippets["Feed"] = f'<br><br><br><hr><div class="feed-container"><h3>Recent Updates</h3>{feed_html}</div>'
 
 
 def GeneratePages(outPutdir, DataSnippets, templates):

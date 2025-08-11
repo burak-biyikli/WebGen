@@ -27,3 +27,7 @@ This site wasn't built by a professional web developer. It runs on a custom-buil
 <p>This website has been online in some form or another for at least a decade, and I didn't put much content up for a long time. I felt I didn't have anything worth sharing, and worse than that, I kept moving the goalposts. I told myself that maybe once I finished the next class, or worked another job, what I thought about writing would be worth sharing. But the truth, in the end, is that people don't get good by waiting. You just have to make something and see.</p>
 
 ***END***
+
+***MODTIME***
+August 09, 2025, 09:36 PM
+***END***
