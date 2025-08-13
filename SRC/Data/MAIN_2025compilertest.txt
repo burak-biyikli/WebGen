@@ -1,0 +1,98 @@
+***LOC***
+2025compilertest.html
+***END***
+
+***TITLE***
+Micro-Benchmarking Compiler Auto-Vectorization
+***END***
+
+***Summary***
+A colleague sent me a link. Hours later, I was still deep in a rabbit hole of assembly, auto-vectorization, and benchmarking GCC vs. Clang.
+***END***
+
+***Body***
+
+One of my long time colleagues Brendan sent me a link that you can view <a href="https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGIM6SuADJ4DJgAcj4ARpjEEgCcpAAOqAqETgwe3r7%2ByanpAiFhkSwxcVyJdpgOGUIETMQEWT5%2BAVU1AnUNBEUR0bEJtvWNzTltwz2hfaUDFQCUtqhexMjsHAD06wDUACoAnkmYW3tLxFtoWFsIsZikWyRbtKhM6FuGW5iqrEn0AHQmGgAggDAQQDpgsFQtgoCMQvA4tiYAOxWIFbdFbUIELaqEwAZlRgIxmMEx3xhOJWK2AC9ySDKaTPrCmFw6WiMVSmcQmGY2USOYzVMy8XyGdiuUxJHzkQARaEAfQI0qBVIUAEcvA1MBAFIqtgAqJh3XXY/VRO5U%2BgMOaIlH0gXYpjIZA%2BRF4uUaUUY/hnCBUvBuj3kzFutyPRjB6zWPA25EU4kYp0uliIyz4uVMEwAVgseGzMt%2BqgNWyi2dz%2Bd%2Bey96Nl9vRxEwBGWDDezp80qRMo4C1onCzvD8HC0pFQnDcUcs0NOq1TeJ4pAImm7CwA1v5JL94pIkfEzFwkZI8XiAGwADjxp/0nEkA6XI84vAUIA0C6XCzgsCQaBYSTosXIlDfr%2B9BxMQABux6SAAtMgBhGHwdAELET4QFEd5RKEDR7Jw84YcwxB7AA8lE2jVIu3C8N%2BbCCIRDC0NhQ68FgUReMAbhiLQT4UaQWAsIYwDiIxPF4A2NRgZgXHDp81ReEhOG8FimC9kJtB4FE3IER4WB3rCeAsPJpDicQUSpJgMqYHxRiqUYb58AYwAKAAangmAAO6EYcg7zvwggiGI7BSDIgiKCo6hCboXD6PxKATjYqlRE%2BkALKgSSOAIXFQYReJbFBfErAg6bgZBwDIGBvCoEZxB4FgiUQAsSSGBErBrOB5xwcAj5KWRGQuAw7ieC0ejBFMJRlHoKRpGlmQDTkkUTQUDC9KNsy2F1HQMF0IwzX4kXtFNm2TMU/TlEM3SjDtp2NEtx0SAsCjTgFPZ9reQmjhwrWwfxvDkVo75fqgP5/mQFAQEBQMgEV0ElQ4cIMCuCG0EhxAoWhQl4VhBnowRxGkQ4BlUYwBC0fRd7Max7G0JxBm8fxgnDvgomOOJkm8NJLpydxinKcO8UaXsWlrMOun6dxRkmUo5mWQJoSgIxCxUPZTkue5nkGT5wiiOIgXqyFah3ro0jtTFaaWPoam1clqUZBlWU5XlyAFe6kMlWVI6VdVEnwPVjXhM1nCtdDnX2FNvX9dkF3DUdMwnfNU3neN%2BRTdd0d6HttQTPHu1rftEzJ2Nu0Z9tqe5yNN1cHdD23VeHD9qQg7Dm9AfOt9b6rv4Zi/JIUgaEivcaPEvdmGehvXi9DcPrYz6vnLpAfogKAA8B/4g2DIEoO1iqw/DNCI8hlCo8OWMMbhmHYyRZH4wD1FE3RDH05gLFsRxXHzjTVmC0xIndczd5s7Jazzi5neXmWEBY6SqiLecYtTKS1pjLWyCsmAOWcm5DyjA1ayD8lraQOslB63CrkI2pgTZxXNl7EcVt0qcEytlXKDQHbpmpAwIytcKqxCqjVchDVih%2Bw4KoSCbUvqrWDj1CArhM6BD6nnFascMgSNkYUUuKcs4iM6IXcOqds7p26NIk6MIzpFwLjopR%2BcK7LFWFXZStd67lU4PwyQgijAtxnhAf6gMQIAVBovcGDlmBJAUAgVABAEZIxRuhU%2Bx9eBHxxhfbiBMaK31Jg/cmz9qYWVph/YSjM8A/yEn/DmgDBBKWAWpPmYChLCwMtAiW6SrLwJnog5Bys0FeV4OrLBAUcGyF1mFYcugsxRRssQqwpt4oWwoVNG2tD7aOxlEwlh5V3acKSskH2vD7FbEDsI7qzgxF9QkZHaY%2Bc8iTTkYYk5C1dGaNURtdRg0VE7NucYqOxz9FbQ0UYq6JjZhmJWI9au1i7xvQ2Vsn6y5SDXBeAMOqpA1xmFPL8Y8GhIKSHPBoI8ZgNAaEispG8dcgUTyfJFMF74YDz1XsvQC3i14NBYGBU8MF2pQVhF4OGIS96oXCfhSJpBonnzxnEq%2BhNiZ3yYskp%2BlMX5iqlnTT%2B2TclSVUDJApCkinc14CAzSGBMmVNFrEcWZlanSxsg0xWKCVboO4u0zWnSgryDwb0nQIA8SDOMLFM2CVyEpUmdQ22uVkBJC8OmMIbDkaYCgmBPEiz2Ee3GdwpqbBOBMHoQgRxHVtnrVDgcqR3yY6JzOR8i5Sdc3XMeQdCRac1HPKOStN5TRzl1queXRY5j/lWLHrYjgyb8ppucb9Webil7Aype4gYtLiosrZTvUJ%2B8uUY24ny3G5F5zxJviTISZMJVU24m/ASmSGbf09nkpV7MAGqqQuqj1ZTtXgL0lU/VMCjXWVlv2xpStUGqytZgm1EgunBQdfrEAx5XXGxGaQz1KzvXW19dMgNQb3QhqMkoCNUa3YxuWTC%2BNvtE1dpTZs5uGaQ57LDvcyR6Am1FoLaRhRi0S0PPWuWhtWiq1fJebWu5s1LqHRreUX5Fjm3tvxa9JNeHQWt1heuX46KuBZizGYMwh4swXl3AEXFHb7wcEfFPElT0OBmHU29Pt4KkM9UkEAA%3D%3D%3D">HERE</a>. Naturally, I opened it as soon as I got it... Several hours after he sent it. I was a bit confused when reading it, but he was of course busy doing other things. So I just spent some time looking at it.
+
+I would like to say I was <a href="https://xkcd.com/356/">nerd sniped</a> by him, but I doubt he really thought too much of it before sending it. Knowing Brendan better than I know assembly vector mnemonics, I spent more time thinking about why it was sent than what was sent. He is a long time proponent of some of the standards within RISCV, and as you can see  below, it is comparing RISC-V, x86, and AArch64 across both GCC and Clang. 
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+  <img src="Resources/2025/CompilerTest/11_Godbolt.png" alt="A Screenshot of godbolt code editor with three panels, one for each compiler." style="width: 80%; height: auto;">
+</div><br>
+
+So I tried to spend some time thinking about why the RISCV approach might be better, the first thing that jumps out is that it is certainly shorter. This is even more true when only looking at the GCC results below.
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+  <img src="Resources/2025/CompilerTest/12_Godbolt_gcc.png" alt="A Screenshot of godbolt code editor with three panels, one for each compiler." style="width: 80%; height: auto;">
+</div><br>
+
+The best that I could understand the code without reading it, was that it is trying to hide xmm vector access latency by doing two in parallel. I did not realize this at the time, but Brendan had set the uarch to Zen 5. Without that information I guessed the compiler generally understood xmm to have latency worth hiding between operations. The next thing I saw was a long region of slightly similar code, with differing register offsets. My best guess was that this is due to alignment.
+
+Consider the case where we want every third element but can grab 8 elements at a time. The first set, we want the 0th, 3rd, and 6th elements. The next time, we want the 1st, 4th, and 7th. After that, the 2nd and 5th. Finally, the pattern repeats. I suspected that the long code length was due to unrolling this pattern.
+
+I had only recently learned that unlike x86, RISCV has gather/scatter vector instructions. In this case those instructions lead to a dramatically shorter unrolling. Here, those instructions lead to a dramatically shorter unrolling since there is only one pattern instead of three: just grab every nth value until the register is filled.
+
+Looking at ARM Clang/gcc I spent too much time trying to tell if the generated code was vectorized. But the best I could tell without looking was that it was only scalar code. My best guess was that this was a criticism of Arm's naming scheme, as the armv8-a compiler produced 'subjectively' worse code than the ARM64GCC compiler. My knowledge was that Armv8 is a big family, from the server Neoverse chips, to the ARMv8-M low power embeded MCUs. Again, I did not see that a specific CPU was specified here, so I assumed this is why auto-vectorization failed.
+
+I had just pulled up the ARM wiki page, when Brendan finished talking. It turns out he was *just* welcoming me to a new plane of suffering featuring compiler idiosyncrasies and bugs, particularly with autovectorization. But nevertheless he humored my ideas, and we talked about the merits and functionality of the code. 
+
+He was doubtful the x86 code was properly generated, that while it was probably functionally correct, profiling had probably gone wrong in some way to create this abomination. I on the otherhand generally have faith in tools. I have only been bitten by issues that should have been obvious in the TI compiler, never something as battle tested as GCC. He remarked I could look around and see the sausage being made for myself, and that non-functional mistakes make it through the cracks.
+
+This was the point where we started writing some test cases for the code. Test cases I spent hours of my day working on instead of taking a break from programing. A foolish choice in the end. I ended up making four test functions: one bare-bones case to measure loading and setup time, one expected to be trivially optimized out, and finally, the unaligned and aligned cases.
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+  <img src="Resources/2025/CompilerTest/13_Code.png" alt="Code Screenshot" style="width: 60%; height: auto;">
+</div>
+<div style="display: flex; justify-content: center; align-items: center;">
+<a href="Resources/2025/CompilerTest/CompilerTestSources.zip" download> You can download my test cases here </a><br>
+</div>
+
+In the end, I 'won' an hour or two less sleep. But I would feel silly to do this if no one ever saw it. As expected when there is nothing to optimize, or the entire function is optimized out all tools perform similarly:
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+  <img src="Resources/2025/CompilerTest/00_AllTools_TrueEmpty.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+  <img src="Resources/2025/CompilerTest/01_AllTools_BasicEmpty.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+</div>
+
+Once we look at the performance of the aligned and unaligned adds we see more realistic results:
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+  <img src="Resources/2025/CompilerTest/02_AllTools_UnalignedSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+  <img src="Resources/2025/CompilerTest/03_AllTools_FullSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+</div>
+
+In these more realistic cases it is no longer useful to keep the unoptimized data in the graph. Without it we first see the minor variations in the tools at optimizing a mostly empty script which is not too remarkable:
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+  <img src="Resources/2025/CompilerTest/04_PerfSettings_TrueEmpty.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+  <img src="Resources/2025/CompilerTest/05_PerfSettings_BasicEmpty.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+</div>
+
+But this highlights a gap between GCC and Clang in vectorization:
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+  <img src="Resources/2025/CompilerTest/06_PerfSettings_UnalignedSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+   <img src="Resources/2025/CompilerTest/07_PerfSettings_FullSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+</div>
+
+This gap doesn't really go away, even when considering the different amounts of time the executables take to start up:
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+  <img src="Resources/2025/CompilerTest/08_AdjustedTimes_UnalignedSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+  <img src="Resources/2025/CompilerTest/09_AdjustedSum_Full_Sum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+</div>
+
+In fact the "Bad" vectorizatin of GCC does so much better it is worthwhile to remove clang from the results:
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+  <img src="Resources/2025/CompilerTest/10_GCCPerf_FullSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+  <img src="Resources/2025/CompilerTest/03_AllTools_FullSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
+</div>
+
+The raw data collected is available for viewing <a href="https://docs.google.com/spreadsheets/d/1xnCOkD6X1nFe3tvv1R5mvzaFBLsgkR7_kGljoelqAPk/edit?usp=sharing">Here</a>. The downloads have the assembly generated for these tests.
+
+***END***
+
+***MODTIME***
+August 12, 2025, 11:31 PM
+***END***

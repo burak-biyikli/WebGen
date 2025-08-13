@@ -342,7 +342,7 @@ def StripHTML(HTML_Text: str) -> str:
 	return clean_text
 
 # Generates an HTML feed of the most recent pages. Expects DataSnippets to be in order from most to least recent
-def GenerateFeedElement(DataSnippets: list, num_items: int = 5, max_length: int = 100):
+def GenerateFeedElement(DataSnippets: list, num_items: int = 5, max_length: int = 255):
 	global GlobalSnippets
 	feed_html = ""
 	for i, snippet in enumerate(DataSnippets[:num_items]):
