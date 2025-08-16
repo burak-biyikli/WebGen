@@ -6,6 +6,10 @@ analogfromdigital.html
 Analog from digital
 ***END***
 
+***TAGS***
+Stories, Tech
+***END***
+
 ***Summary***
 One weird trick to reduce the BOM cost of a design you might have used unintentionally used.
 ***END***

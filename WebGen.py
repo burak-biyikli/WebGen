@@ -21,8 +21,9 @@ Domain = "BurakBiyikli.com"
 RunDir = os.getcwd() #Where The Shell is when the script is run
 SaveDir = os.path.dirname(os.path.realpath(__file__)) #Saved Dir
 
+#Differs from data snippets, as these as associated with every page.
 GlobalSnippets = {}
-GlobalSnippets["TestTag"] = "TestContent"
+#GlobalSnippets["TestTag"] = "TestContent"
 
 #Index is list of all pages
 #CSS is list of all style sheets
@@ -310,7 +311,18 @@ def InterpretDataSnippet(FilePath):
 	# Auto-paragraph the body text
 	if "Body" in DataSnippet:
 		DataSnippet["Body"] = AutoParagraph(DataSnippet["Body"])
-			
+		
+	# Deal with tags
+	if "TAGS" in DataSnippet:
+		DataSnippet["TAGS"]   = DataSnippet["TAGS"].replace(",", " ").split()
+		DataSnippet["TAGSTR"] = "This Article has the following Tags:" + ", ".join(DataSnippet["TAGS"])
+	else:
+		DataSnippet["TAGSTR"] = ""
+		
+	# Deal with local
+	if not("LOCAL" in DataSnippet):
+		DataSnippet["LOCAL"] = ""
+		
 	# After parsing, check for the MODTIME tag
 	if "MODTIME" in DataSnippet:
 		parsed_time = ParseTimestamp(DataSnippet["MODTIME"])
@@ -322,16 +334,37 @@ def InterpretDataSnippet(FilePath):
 		DataSnippet["MODTIME"]     = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y, %I:%M %p')
 		AppendMissingTimestamp(FilePath, mod_time) # The function we discussed before
 
-	
-
 	return DataSnippet
 
 def GenerateIndexElement(DataSnipets):
 	global GlobalSnippets
 	indexData = ""
 	for Dict in DataSnippets:
-		indexData = indexData + "<a href='"+ "/"+ Dict["LOC"] + "'>"+Dict["TITLE"]+"</a> <br>"
+		indexData = indexData + "<a href='"+ "/"+ Dict["LOC"] + "'>"+Dict["TITLE"]+"</a> <br>\n"
 	GlobalSnippets["Index"] = indexData 
+
+def GenerateTagsElement(DataSnipets):
+	global GlobalSnippets
+	tags_html = ""
+	tag_dict = {}
+	for idx, Dict in enumerate(DataSnippets):
+		if "TAGS" in Dict:
+			for tag in Dict["TAGS"]:
+				tag_dict[tag] = tag_dict.get(tag, [])
+				tag_dict[tag].append(idx)
+				
+	tag_keys = sorted(list(tag_dict.keys()))
+	for tag in tag_keys:
+		title_idx_arr = sorted([ [DataSnipets[ii]["TITLE"], ii] for ii in tag_dict[tag]], key=lambda x: x[0])
+		
+		tags_html += f"<h4 id='tag_{tag}'>{tag}</h4>\n"
+		print(title_idx_arr)
+		for title, ii in title_idx_arr:
+			print(title, ii)
+			tags_html += f"<a href='/{DataSnipets[ii]['LOC']}'> {DataSnipets[ii]['TITLE']} </a><br>\n"
+		
+	
+	GlobalSnippets["Tags"] = tags_html 
 
 
 # Removes HTML tags and comments from a string using regular expressions.
@@ -428,6 +461,8 @@ if __name__ == "__main__":
 	GenerateIndexElement(DataSnippets)
 	print("Generating Feed Element from snippets")
 	GenerateFeedElement(DataSnippets)
+	print("Generating Tags Element from snippets")
+	GenerateTagsElement(DataSnippets)
 	print("Global Snipets: ")
 	for s in GlobalSnippets:
 		print(f"\t{s}:{str(GlobalSnippets[s])}")

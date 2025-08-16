@@ -6,6 +6,10 @@
 Micro-Benchmarking Compiler Auto-Vectorization
 ***END***
 
+***TAGS***
+Stories, Tech
+***END***
+
 ***Summary***
 A colleague sent me a link. Hours later, I was still deep in a rabbit hole of assembly, auto-vectorization, and benchmarking GCC vs. Clang.
 ***END***

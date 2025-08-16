@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		<title>
+Text Stripping Tool		</title>
+<link rel="stylesheet" href=Main.css>
+<link rel="stylesheet" href=Footer.css>
+<link rel="stylesheet" href=Body.css>
+<link rel="stylesheet" href=Nav.css>
+<script src="Nav.js"></script>
+<script src="AnimatedCanvas1.js"></script>
+<style>
+    .text-box {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0.75rem;
+        min-height: 200px;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 1rem;
+        line-height: 1.5;
+        resize: vertical;
+    }
+    #input-box {
+        overflow-y: auto;
+		background-color: #ffffff;
+	}
+	#output-box {
+	  background-color: #f0f0f0;
+	}
+    .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1rem;
+        background-color: #f9fafb;
+        border-radius: 4px;
+    }
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+    }
+    .checkbox-group input {
+        margin-right: 0.5rem;
+    }
+    .actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    #process-btn {
+        background-color: #007bff;
+        color: white;
+        flex-grow: 1;
+    }
+    #process-btn:hover {
+        background-color: #0056b3;
+    }
+    #copy-btn {
+        background-color: #6c757d;
+        color: white;
+    }
+    #copy-btn:hover {
+        background-color: #5a6268;
+    }
+</style>
+<script defer>
+    // --- Core Functions ---
+    /**
+     * Removes <sup> and <sub> tags and their content.
+     * Also removes <span> tags styled with vertical-align: sub/super.
+     */
+    function removeSubSuper(htmlString) {
+        let processedString = htmlString;
+        processedString = processedString.replace(/<su[bp][^>]*>.*?<\/su[bp]>/gi, '');
+        processedString = processedString.replace(/<span[^>]*style="[^"]*vertical-align:\s*(sub|super)[^"]*"[^>]*>.*?<\/span>/gi, '');
+        return processedString;
+    }
+    /**
+     * Removes all HTML tags from a string, but keeps the inner content.
+     * First, it removes script/style blocks entirely for security.
+     */
+    function stripHtmlTags(htmlString) {
+        let processedString = htmlString;
+        processedString = processedString.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+        processedString = processedString.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+        return processedString.replace(/<[^>]*>/g, '');
+    }
+    /**
+     * Decodes HTML entities (e.g., &amp; -> &) by leveraging the browser's parser.
+     */
+    function decodeHtmlEntities(text) {
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.innerHTML = text;
+        return tempTextArea.value;
+    }
+    // --- Event Handlers ---
+    /**
+     * Main handler to process the text based on selected checkboxes.
+     */
+    function handleProcessClick() {
+        let processedText = document.getElementById('input-box').innerHTML;
+        if (document.getElementById('strip-subsuper-check').checked) {
+            processedText = removeSubSuper(processedText);
+        }
+        if (document.getElementById('strip-html-check').checked) {
+            processedText = stripHtmlTags(processedText);
+        }
+        // Always decode entities at the end for a clean plain-text result
+        document.getElementById('output-box').value = decodeHtmlEntities(processedText);
+    }
+    /**
+     * Copies the output text to the clipboard and provides user feedback.
+     */
+    function handleCopyClick() {
+        if (!document.getElementById('output-box').value){
+        	return; // Don't copy if empty
+        }
+        
+        let copyBtn = document.getElementById('copy-btn');
+        
+        navigator.clipboard.writeText(document.getElementById('output-box').value).then(() => {
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+            }, 2000); // Revert after 2 seconds
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+</script>
+	</head>
+<body>
+	<div>
+<div class="topnav" id="myTopnav">
+  <a href="/index.html" class="active">Home</a>
+  <a href="/Resume.html">Resume</a>
+  <a href="/tags.html#tag_tools">Tools</a>
+  <a href="/siteindex.html">All Pages</a>
+  <a href="javascript:void(0);" class="icon" onclick="topNav()">&#9776;</a>
+</div>
+	</div>
+	<div id="ContentBody">
+		<div>
+			<h1>
+Text Stripping Tool			</h1>
+		</div>
+		<br>
+		<div>
+This is a simple tool that I made to strip HTML out of transcripts I was copying and pasting. I also ocasionally run into situations where there are many superscripts and it gets tedious to remove them all by hand. Just note that the tool is a little indiscriminate, and you might loose things if you write even simple math in the text ie "2<3, 3<=4" will be butchered by the tool. 
+		</div>
+		<br>
+		<div>
+<div>
+    <label for="input-box"><b>Input (Paste Rich Text Here)</b></label>
+    <div id="input-box" class="text-box" contenteditable="true">
+        <p>Here is some demo formatting</p>
+        <p><a href="#">Link</a>, <b>bold</b> and <i>italics</i>.</p>
+        <p>Sub/super scripts: H<sub>2</sub>O<span style="vertical-align: sub;">2</span> / E = mc<sup>2</sup>. </p>
+        <ul><li>List item 1</li><li>List item 2</li></ul>
+    </div>
+</div>
+
+<div class="controls">
+    <label><b>Processing Options</b></label>
+    <div class="checkbox-group">
+        <input type="checkbox" id="strip-html-check" name="strip-html">
+        <label for="strip-html-check">Strip HTML Tags (keeps text content)</label>
+    </div>
+    <div class="checkbox-group">
+        <input type="checkbox" id="strip-subsuper-check" name="strip-subsuper">
+        <label for="strip-subsuper-check">Remove Superscript/Subscript Text</label>
+    </div>
+    <div class="actions">
+        <button id="process-btn" onclick="handleProcessClick()">Process Text</button>
+        <button id="copy-btn" onclick="handleCopyClick()">Copy</button>
+    </div>
+</div>
+
+<div>
+    <label for="output-box"><b>Output (Plain Text)</b></label>
+    <textarea id="output-box" class="text-box" readonly placeholder="Result will appear here..."></textarea>
+</div>		</div>
+		<div>
+<br><br><br><hr><div class="feed-container"><h3>Recent Updates</h3><div class="feed-item">
+	<h4><a href="/textstripper.html">Text Stripping Tool</a></h4>
+	<p>This is a simple tool that I made to strip HTML out of transcripts I was copying and pasting. I also ocasionally run into situations where there are many superscripts and it gets tedious to remove them all by hand. Just note that the tool is a little i...</p>
+</div>
+<div class="feed-item">
+	<h4><a href="/2025compilertest.html">Micro-Benchmarking Compiler Auto-Vectorization</a></h4>
+	<p>A colleague sent me a link. Hours later, I was still deep in a rabbit hole of assembly, auto-vectorization, and benchmarking GCC vs. Clang. One of my long time colleagues Brendan sent me a link that you can view HERE. Naturally, I opened it as soon as ...</p>
+</div>
+<div class="feed-item">
+	<h4><a href="/analogfromdigital.html">Analog from digital</a></h4>
+	<p>One weird trick to reduce the BOM cost of a design you might have used unintentionally used. Engineering is about tradeoffs, and this is never truer than when it comes to cost. It takes an awfully large number of produced parts to justify the engineeri...</p>
+</div>
+<div class="feed-item">
+	<h4><a href="/Resume.html">Burak's Resume</a></h4>
+	<p>This is my most recent Resume, it is accurate as of August 2025. This was the first time I felt like I had enough content to justify two pages. I had been trying to fit on one page by any means necessary, including .1 inch margins and less than 8pt fon...</p>
+</div>
+<div class="feed-item">
+	<h4><a href="/webstory.html">This Site's Story</a></h4>
+	<p>This site wasn't built by a professional web developer. It runs on a custom-built generator and over a decade of curiosity. You might be aware of the many options for static website generators and content management systems out there. It would be comic...</p>
+</div>
+</div>		</div>
+		<div>
+			This page was edited on:
+August 15, 2025, 10:35 PM
+		</div>
+	</div>
+	<div>
+
+<div id="Footer">
+	<div id="FooterContent">
+	Made by Burak Biyikli<br>
+	Find me on <a href="https://www.linkedin.com/in/burak-biyikli/">linkedin</a> or see my <a href="/Resume.html">Resume</a><br>
+	Copyright 2019-2020
+	</div>
+</div>
+	</div>
+</body>
+</html>
