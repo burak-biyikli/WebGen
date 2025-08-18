@@ -1,0 +1,37 @@
+***LOC***
+worklifebalance.html
+***END***
+
+***TITLE***
+The Work-Life Question
+***END***
+
+***TAGS***
+Stories
+***END***
+
+***Summary***
+Being clear about what you mean is a skill, being clear in what you mean without acknowledging the consequences is a profession
+***END***
+
+***Body***
+Everybody knows that lying is wrong. Or at the very least, that lying too much will get you in trouble. 
+
+Everybody also knows that ‘not lying’ has its own ways of being destructive. People who only stick by the ‘Hard Truth’ tend to be less attached to honesty than to their justification to inflame a situation or punch down on someone else. The examples of ‘white lies’ are as endless as the rationalizations and justifications that come along with them.
+
+I like to believe honesty is the best policy. Life is much simpler when you don’t need to keep track of what you have said. Besides, I already forget which stories I have told, and often worry about coming off as a broken record.
+
+But sometimes the stakes are higher than just getting your story straight. Sadly in the corporate world you want to tell someone to do something, but aren’t allowed to say what you mean. A savvy boss will never ask you to delete emails that look bad when worried about wrong doing, but might institute a new policy where emails are deleted after only 30 days.
+
+I wanted to write down a few of the greatest hits before I forget them.
+
+While interviewing one of my friends asked the manager of the group about the work-life balance at the team. To which the manager responded “Candidates always focus on work-life balance, when what they should be looking at is work-life integration. You should ask yourself, how can I bring work and life together in order to do more at both.”
+
+At a quarterly meeting an engineer asked “With market-rates for talented engineers increasing and rising inflation, do we have any plans to do cost of living pay adjustments to make sure that we can keep the top talent at the company?” To which the the executive hosting the Q&A section responded “When unemployment was higher and market rates were depressed, I don’t think anybody asked management – or at least nobody asked me – if we should do a market based adjustment of pay to save the company money like you are suggesting. I am proud of our company and the way we do things, I think it is good that when the company offers you a deal it means it.”
+
+At an all hands meeting an engineer joining virtually asks “Over the last half hour, we have talked about how we can’t compromise on quality, we can’t compromise on time line. Unfortunately these two things stand in opposition. We should be realistic and upfront about what the biggest priority is, so can you clarify your stance?” To which the CEO responded “Usually with these things, it looks like a triangle right? You can’t have something fast, good, and cheap – you can only pick two. What I am telling you right now is I am picking two, and we will sacrifice the third thing.” To which an engineer in the audience quips “I think the third thing is work life balance.” The CEO hears this comment and responds “Listen, engineering is all about trade-offs, and we have to do some real engineering here. I will trust each individual team to make the trade-offs they need to make to have this chip market ready and on time. We are all adults here, I will not hide anything from you, we all know what it will mean if this chip is a month late or can’t find a market fit. It cannot be the case that after another 100 million dollars in payroll and all the cost of production we have a chip that doesn’t work.”
+***END***
+
+***MODTIME***
+August 18, 2025, 01:03 AM
+***END***
