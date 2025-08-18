@@ -21,21 +21,21 @@ Engineering is about tradeoffs, and this is never truer than when it comes to co
 In school, we learn to make a Digital-to-Analog Converter (DAC) using resistor networks. Common examples are the R-2R Ladder, found in chips like the MAX5352, or a switched resistor string, used in the TLV5616. In both cases, a network of internal resistors is used to create a specific output voltage.
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
-  <img src="Resources/Max5352.png" alt="A diagram of an R-2R resistor ladder network used in a DAC." style="width: 45%; height: auto;">
-  <img src="Resources/TLV5616.png" alt="Functional block diagram of a DAC using a switched resistor string." style="width: 45%; height: auto;">
+  <img src="Resources/2025/afd/Max5352.png" alt="A diagram of an R-2R resistor ladder network used in a DAC." style="width: 45%; height: auto;">
+  <img src="Resources/2025/afd/TLV5616.png" alt="Functional block diagram of a DAC using a switched resistor string." style="width: 45%; height: auto;">
 </div><br>
 
 While you could recreate these circuits on a PCB using passive and a few GPIOs from your MCU, this has significant drawbacks. Like many DACs they often have high output impedance, making them poor at driving loads directly. For the R-2R you also need well sized resistors which might be hard to find, and for the resistor string you need a large number of analog switches (Propagate exact voltage not just digital 1 or 0). But the real nail in the coffin is the large number of microcontroller pins required for even limited resolution. 
 
 So, what if instead of using many pins and components scaling with the desired DAC resolution, we could just use just one pin and a simple filter? This is the core idea behind creating an analog signal by rapidly toggling a digital pin, a technique often called Pulse-Width Modulation (PWM). If we filter the output, it becomes a true analog signal. To understand why, we need to look at what a square wave is really made of.
 
-<img src="Resources/FT.webp" alt="An illustration of a square wave and the fundamental sine wave component of its Fourier series." width="100%">
+<img src="Resources/2025/afd/FT.webp" alt="An illustration of a square wave and the fundamental sine wave component of its Fourier series." width="100%">
 
 When we spend a lot of time in the digital domain, it gives the false impression that a square wave is a single, pure signal. But much like a musical chord is built from several individual notes, a square wave is built from its DC average value (the output voltage we want) plus an infinite series of sine and cosine waves at higher frequencies. These higher frequencies are often called harmonics. The more of these harmonics you add together, the more the result looks like a perfect square wave. A 'true' squarewave actually contains harmonics of infinitely high frequency, and is not actually physically possible.
 
 (Tangentially, you can see how on each subsequent wave we remove from the existing peaks and add to the edges. By paying attention to this you can intuitively deduce the frequencies are f, 3f, 5f, 7f and so on.)
 
-<img src="Resources/FT_SLOW.webp" alt="An illustration of a square wave and the fundamental sine wave component of its Fourier series." width="100%">
+<img src="Resources/2025/afd/FT_SLOW.webp" alt="An illustration of a square wave and the fundamental sine wave component of its Fourier series." width="100%">
 
 This implicit composition of the square wave is the key to our trick. If we can filter out all the high-frequency harmonics, we are left with just the DC average value. We can control this average value by changing the duty cycle, aka the percentage of time the pin is "on" versus "off." A low-pass filter, made from a simple resistor and capacitor (an RC filter), is perfect for this job. And with that, we've created a high-fidelity analog signal with just one pin and two cheap passive components.
 
