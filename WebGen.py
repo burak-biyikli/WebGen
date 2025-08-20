@@ -401,7 +401,7 @@ def GenerateFeedElement(DataSnippets: list, num_items: int = 5, max_length: int 
 </div>
 """
 	# Wrap the entire output in a container
-	GlobalSnippets["Feed"] = f'<br><br><br><hr><div class="feed-container"><h3>Recent Updates</h3>{feed_html}</div>'
+	GlobalSnippets["Feed"] = f'<br><br><div class="feed-container"><h3>Recent Updates</h3>{feed_html}</div>'
 
 
 def GeneratePages(outPutdir, DataSnippets, templates):

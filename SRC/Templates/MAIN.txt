@@ -23,6 +23,7 @@
 				***Summary***
 			</div>
 		</div>
+		<br>
 		<div>
 			***Body***
 		</div>

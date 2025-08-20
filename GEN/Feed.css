@@ -1,19 +1,19 @@
 .feed-container {
   background-color: #e8e8e3; /* A slightly different background */
-  border-radius: 8px;
-  padding: 10px 20px;
-  margin-top: 20px;
-  border: 1px solid #ddd;
+  border-radius: 8px;  
+  padding: 1em  1.5em 1em; /*Top/Bottom and Left/Right*/
+  margin:  0em -1.5em 1em; /*Oversizes div slightly, but maintains content area*/
+  border: 1px solid #eee;
 }
 
 .feed-container h3 {
   margin-top: 5px;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #EE4242; /*EE is the answer to life*/
   padding-bottom: 10px;
 }
 
 .feed-item {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
   padding: 10px 0;
 }
 
@@ -28,5 +28,5 @@
 .feed-item p {
   margin: 0;
   font-size: 0.9em; /* Make preview text slightly smaller */
-  color: #555;
+  color: #333;
 }
