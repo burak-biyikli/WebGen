@@ -53,36 +53,30 @@ h4 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
   }
 }
 
-
-.feed-container {
-  background-color: #e8e8e3; /* A slightly different background */
+#PageHeader {
+  background-color: #e8e8e3; /* Darker Gray than the rest of the feed */
+  padding: 2em 1.5em; /*Top/Bottom and Left/Right*/
+  margin: 0em -1.5em; /*Oversizes div slightly, but maintains content area*/
   border-radius: 8px;
-  padding: 10px 20px;
-  margin-top: 20px;
-  border: 1px solid #ddd;
 }
 
-.feed-container h3 {
-  margin-top: 5px;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 10px;
+#PageHeader h1 {
+  margin-top: 0;
 }
 
-.feed-item {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+#PageHeader div{
+  font-size: 1.1em;
+  font-style: italic;
+  color: #333;
+  border-left: 4px solid #EE4242; /*EE is the answer to life*/
+  padding-left: 1em;
+  margin-top: 1em;
 }
 
-.feed-item:last-child {
-  border-bottom: none; /* Remove border from the last item */
+#PageHeader hr {
+  border: none;
+  height: 1px;
+  background-color: #888;
+  margin: 0 0;
 }
 
-.feed-item h4 {
-  margin: 0 0 5px 0;
-}
-
-.feed-item p {
-  margin: 0;
-  font-size: 0.9em; /* Make preview text slightly smaller */
-  color: #555;
-}

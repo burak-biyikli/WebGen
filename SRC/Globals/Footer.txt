@@ -3,8 +3,9 @@
 <div id="Footer">
 	<div id="FooterContent">
 	Made by Burak Biyikli<br>
+	Proudly running on hopes and dreams.<br>
 	Find me on <a href="https://www.linkedin.com/in/burak-biyikli/">linkedin</a> or see my <a href="/Resume.html">Resume</a><br>
-	Copyright 2019-2020
+	Copyright 2019-2025
 	</div>
 </div>
 ***END***

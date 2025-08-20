@@ -1,0 +1,32 @@
+.feed-container {
+  background-color: #e8e8e3; /* A slightly different background */
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+.feed-container h3 {
+  margin-top: 5px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.feed-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.feed-item:last-child {
+  border-bottom: none; /* Remove border from the last item */
+}
+
+.feed-item h4 {
+  margin: 0 0 5px 0;
+}
+
+.feed-item p {
+  margin: 0;
+  font-size: 0.9em; /* Make preview text slightly smaller */
+  color: #555;
+}

@@ -315,7 +315,8 @@ def InterpretDataSnippet(FilePath):
 	# Deal with tags
 	if "TAGS" in DataSnippet:
 		DataSnippet["TAGS"]   = DataSnippet["TAGS"].replace(",", " ").split()
-		DataSnippet["TAGSTR"] = "This Article has the following Tags:" + ", ".join(DataSnippet["TAGS"])
+		Links = [ f'<a href="/tags.html#tag_{tagstr}">{tagstr}</a>' for tagstr in DataSnippet["TAGS"]]
+		DataSnippet["TAGSTR"] = "This page has the following tags: " + ", ".join(Links)
 	else:
 		DataSnippet["TAGSTR"] = ""
 		

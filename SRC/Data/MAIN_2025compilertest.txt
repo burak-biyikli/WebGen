@@ -34,7 +34,7 @@ The best that I could understand the code without reading it, was that it is try
 
 Consider the case where we want every third element but can grab 8 elements at a time. The first set, we want the 0th, 3rd, and 6th elements. The next time, we want the 1st, 4th, and 7th. After that, the 2nd and 5th. Finally, the pattern repeats. I suspected that the long code length was due to unrolling this pattern.
 
-I had only recently learned that unlike x86, RISCV has gather/scatter vector instructions. In this case those instructions lead to a dramatically shorter unrolling. Here, those instructions lead to a dramatically shorter unrolling since there is only one pattern instead of three: just grab every nth value until the register is filled.
+I had only recently learned that unlike x86, RISCV has gather/scatter vector instructions. Here, those instructions lead to a dramatically shorter unrolling since there is only one pattern instead of three: just grab every nth value until the register is filled.
 
 Looking at ARM Clang/gcc I spent too much time trying to tell if the generated code was vectorized. But the best I could tell without looking was that it was only scalar code. My best guess was that this was a criticism of Arm's naming scheme, as the armv8-a compiler produced 'subjectively' worse code than the ARM64GCC compiler. My knowledge was that Armv8 is a big family, from the server Neoverse chips, to the ARMv8-M low power embeded MCUs. Again, I did not see that a specific CPU was specified here, so I assumed this is why auto-vectorization failed.
 

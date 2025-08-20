@@ -1,9 +1,9 @@
 ***LOC***
-worklifebalance.html
+corporateebalance.html
 ***END***
 
 ***TITLE***
-The Work-Life Question
+On The Balance Of Words
 ***END***
 
 ***TAGS***
@@ -11,7 +11,7 @@ Stories
 ***END***
 
 ***Summary***
-Being clear about what you mean is a skill, being clear in what you mean without acknowledging the consequences is a profession
+Being clear about what you mean is a skill, being clear in what you mean while avoiding accountability on the consequences is a profession
 ***END***
 
 ***Body***
@@ -29,7 +29,7 @@ While interviewing one of my friends asked the manager of the group about the wo
 
 At a quarterly meeting an engineer asked “With market-rates for talented engineers increasing and rising inflation, do we have any plans to do cost of living pay adjustments to make sure that we can keep the top talent at the company?” To which the the executive hosting the Q&A section responded “When unemployment was higher and market rates were depressed, I don’t think anybody asked management – or at least nobody asked me – if we should do a market based adjustment of pay to save the company money like you are suggesting. I am proud of our company and the way we do things, I think it is good that when the company offers you a deal it means it.”
 
-At an all hands meeting an engineer joining virtually asks “Over the last half hour, we have talked about how we can’t compromise on quality, we can’t compromise on time line. Unfortunately these two things stand in opposition. We should be realistic and upfront about what the biggest priority is, so can you clarify your stance?” To which the CEO responded “Usually with these things, it looks like a triangle right? You can’t have something fast, good, and cheap – you can only pick two. What I am telling you right now is I am picking two, and we will sacrifice the third thing.” To which an engineer in the audience quips “I think the third thing is work life balance.” The CEO hears this comment and responds “Listen, engineering is all about trade-offs, and we have to do some real engineering here. I will trust each individual team to make the trade-offs they need to make to have this chip market ready and on time. We are all adults here, I will not hide anything from you, we all know what it will mean if this chip is a month late or can’t find a market fit. It cannot be the case that after another 100 million dollars in payroll and all the cost of production we have a chip that doesn’t work.”
+At an all hands meeting an engineer joining virtually asks the executive hosting the meeting, “Over the last half hour, we have talked about how we can’t compromise on quality, and that we can’t compromise on the time line. Unfortunately these two things stand in opposition. We should be realistic and upfront about what the biggest priority is, so can you clarify your stance?” To which the executive responded “Usually with these things, it looks like a triangle right? You can’t have something fast, good, and cheap – you can only pick two. What I am telling you right now is I am picking two, and we will sacrifice the third thing.” To which an engineer in the audience quips “I think the third thing is work life balance.” The executive hears this comment and responds “Listen, engineering is all about trade-offs, and we have to do some real engineering here. I will trust each individual team to make the trade-offs they need to make to have this chip market ready and on time. We are all adults here, I will not hide anything from you, we all know what it will mean if this chip is a month late or can’t find a market fit. It cannot be the case that after another 100 million dollars in payroll and all the cost of production we have a chip that doesn’t work.”
 ***END***
 
 ***MODTIME***

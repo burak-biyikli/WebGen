@@ -14,16 +14,15 @@
 		***NAV***
 	</div>
 	<div id="ContentBody">
-		<div>
+		<div id="PageHeader">
 			<h1>
 				***TITLE***
 			</h1>
+			<hr>
+			<div>
+				***Summary***
+			</div>
 		</div>
-		<br>
-		<div>
-			***Summary***
-		</div>
-		<br>
 		<div>
 			***Body***
 		</div>
@@ -33,6 +32,8 @@
 		<div>
 			This page was edited on:
 			***MODTIME***
+			<br>
+			***TAGSTR***
 		</div>
 	</div>
 	<div>
