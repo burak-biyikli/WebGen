@@ -3,7 +3,7 @@ html {
   background-color: #333;
   width: 100%;
   /* Set a base font size that scales fluidly between 16px and 22px */
-  font-size: clamp(16px, 1.6vw, 22px);
+  font-size: clamp(16px, 1.6vw, 20px);
 }
 
 body {
