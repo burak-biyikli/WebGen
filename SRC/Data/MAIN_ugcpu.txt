@@ -1,0 +1,69 @@
+***LOC***
+ugcpu.html
+***END***
+
+***TITLE***
+My Custom 8-Bit CPU
+***END***
+
+***TAGS***
+Projects, Tech
+***END***
+
+***Summary***
+How I learned to let go of small things like ‘value proposition’, ‘opportunity cost’ and ‘reason’ in order to embrace the transistor.
+***END***
+
+***Body***
+
+In the later half of my internship at AMD in 2019, I was struck by the Muse. I had just seen the <a href="https://monster6502.com/">Monster 6502</a>, which is a 1-1 scale replica of the venerable 6502. The MOS6502 was released in 1975, and it powered much of what people remember about technology from the 80s. The NES, the Commodore 64, the BBC Micro, and more where powered with this chip. I was not alive to see the hayday of this chip, but I grew up reading the blogs of those who did. It was a marvel of a bygone age in a package I could grasp and maybe even recreate at home. I didn't have much experience then, just unfounded ambition and a handful of freshman EE classes. 
+
+<div class="image-gallery">
+  <img src="Resources/2025/CustomCPU/00_Monster6502.jpg" alt="The approx 1ftx1ft 6502 in all its glory" style="width: 50%;">
+</div>
+
+I didn't know CAD tools, RTL, or even how to make a PCB. What I did know was how to draw transistor-level circuits on paper, just like in my classes. I started by sketching building blocks—registers, logic gates, and adders—and tested them in an <a href="https://www.falstad.com/circuit/circuitjs.html">online simulator</a>, constantly modifying and discarding my paper designs.
+
+As the circuits grew, simulating them became all at once became unwieldy, and I had to rely on abstraction. Soon, my higher-level design blocks existed only as a growing collection of paper schematics in a folder. It took about four weeks of spare-time work to create the first complete version, and another three months before I had a design I felt was truly solid.
+
+<div class="image-gallery">
+  <img src="Resources/2025/CustomCPU/01_V3Sch.png" alt="Last top level paper schematic of the design">
+  <img src="Resources/2025/CustomCPU/02_V3Sim.png" alt="Example of Simulated circuit">
+</div>
+  
+Since I planned to build the final circuit by hand on a custom PCB, the name of the game was minimizing transistors. Every component added time, money, and another potential point of failure. This philosophy extended to the registers. I based my design on latches instead of flip-flops, which cut the transistor count nearly in half per register bit as you can seel below. This meant I couldn't read from and write to a register in the same clock cycle, but it was a tradeoff worth making when a single failed transistor could mean days of debugging.
+
+The Arithmetic Logic Unit (ALU) was the largest block due to the XOR gates it contained. My first attempt at an XOR gate, built from standard AND/OR/NOT gates, used 22 transistors. This meant the adder circuit alone would require about 50 transistors per bit—for comparison, an entire register bit took only 16! Switching to a NAND/NOR implementation brought it down to 16 transistors. After tweaking Boolean equations, I saved another two. I was stuck there for weeks until a breakthrough on another part of the design gave me a new idea. I implemented the XOR function directly, using the inputs A and B and their inverted signals to drive four pairs of MOSFETs. This final design got the XOR gate down to a lean 12 transistors.
+
+<div class="image-gallery">
+  <img src="Resources/2025/CustomCPU/03_ENLatch.png" alt="Latch showing reduction of components compared to the clocked circuit">
+  <img src="Resources/2025/CustomCPU/04_CLKLatch.png" alt="The additional gates allow this circuit to only update on a clock edge">
+</div>
+
+As the design progressed, I began grappling with the limitations of an 8-bit machine. I chose 8 bits not because it was ideal, but because I dreaded the time it would take to hand-assemble anything larger. Every transistor was precious. In my <a href="https://docs.google.com/presentation/d/14Ue_1OAk5SByYVGPVo47tkymOBbk-n27/edit?usp=drive_link&ouid=106695353068532810924&rtpof=true&sd=true">Presentation</a>, you can see how I stretched simple operations over many clock cycles just to keep the data path simple. As the design matured, I did allow myself one big divergance from the style of the 6502: I used a ROM IC for the instruction decoder instead of building a diode array like the 6502 did. I didn't know how to perform logic reduction on a large scale, so this was the most practical solution available to me. You can see the evolution of the datapath in the two versions below.
+
+As I considered the CPU's functionality, I realized an 8-bit address space, with its 256-byte limit, was too restrictive for a meaningful program. To solve this, I banked the memory to create a 16-bit address space. I also opened up a datapath to the ALU for immediate values, added status flags to accommodate branch instructions, and isolated the swap register, which simplified the micro-ops.
+
+<div class="image-gallery">
+  <img src="Resources/2025/CustomCPU/05_V2DP.png" alt="Shows maybe the second revision of my datapath">
+  <img src="Resources/2025/CustomCPU/06_V3DP.png" alt="Shows the third, and final revision of the datapath with more of the hardware fleshed out out">
+</div>
+
+The resulting Instruction Set Architecture (ISA) had, by necessity, a small scope. With only 8 bits available for an entire instruction, there isn't much space for complexity. At the time, I didn't know about techniques like variable-length or multi-word instructions, so I focused on packing as much useful functionality as I could into that tiny footprint.
+
+<div class="image-gallery">
+  <img src="Resources/2025/CustomCPU/07_V3ISA.png" alt="ISA with MOV/SWP/NOT/ADD/SUB/AND/OR/IO/LD/LDR/JMP instructions" style="width: 50%;">
+</div>
+
+I think this was a great project for my personal development, even if it wasn't groundbreaking. My design, while using fewer transistors, doesn't really stand up to the 6502 in functionality; it lacked the addressing modes, instructions, and interrupts. But the goal was never to beat the digital designers of 1975; it was to learn by walking in their footsteps. This project gave me a reason to learn more and was the centerpiece of an interview that led to a job at TI. The full presentation is available <a href="https://docs.google.com/presentation/d/14Ue_1OAk5SByYVGPVo47tkymOBbk-n27/edit?usp=drive_link&ouid=106695353068532810924&rtpof=true&sd=true">here</a> if you want to see what I was able to accomplish by working on a project outside my comfort zone.
+
+<div class="image-gallery">
+  <img src="Resources/2025/CustomCPU/08_PPTCon.png" alt="Slide showing how poorly my design compares to the 6502, but that I was proud anyways to have something I made from scratch">
+</div>
+
+
+***END***
+
+***MODTIME***
+August 19, 2025, 10:50 PM
+***END***
