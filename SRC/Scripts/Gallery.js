@@ -38,10 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	MainGallery.querySelector('.prev').addEventListener('click', () => { showImage(currentIndex-1); });
 	MainGallery.querySelector('.next').addEventListener('click', () => { showImage(currentIndex+1); });
 
-	// Close the image on 'esc'
+	// Close the image on 'esc', left and right from arrow keys
 	document.addEventListener('keydown', (event) => {	
-		if (MainGallery.classList.contains('active') && event.key === 'Escape') {
+		if (!MainGallery.classList.contains('active')){
+			return;
+		} else if (event.key === 'Escape') {
 			MainGallery.classList.remove('active');
+		} else if (event.key === 'ArrowLeft') {
+			showImage(currentIndex-1);
+		} else if (event.key === 'ArrowRight') {
+			showImage(currentIndex+1)
 		}
 	});
 	
