@@ -60,3 +60,9 @@
   width: 80%; 
   height: auto;
 }
+
+.caption-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

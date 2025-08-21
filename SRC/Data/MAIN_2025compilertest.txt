@@ -47,7 +47,7 @@ This was the point where we started writing some test cases for the code. Test c
 <div class="image-gallery">
   <img src="Resources/2025/CompilerTest/13_Code.png" alt="Code Screenshot" style="width: 60%; height: auto;">
 </div>
-<div style="display: flex; justify-content: center; align-items: center;">
+<div class="caption-gallery">
 <a href="Resources/2025/CompilerTest/CompilerTestSources.zip" download> You can download my test cases here </a><br>
 </div>
 
