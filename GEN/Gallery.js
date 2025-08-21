@@ -44,22 +44,29 @@ document.addEventListener('DOMContentLoaded', () => {
 			MainGallery.classList.remove('active');
 		}
 	});
+	
 
 	//Using list of galleries, add function to open to each
-	galleries.forEach(gallery => {
+	galleries.forEach( (gallery, gidx) => {
 	
 		//For each image within gallery
 		const images = gallery.querySelectorAll('img');
-		images.forEach((img, index) => {
+		const sep_width = (images.length + 1) * 2; //Amount of gap in percent 
+		const def_width = Math.min( 60, (100 - sep_width)/images.length) + "%"
+		//console.log("Found default width of: "def_width + " for " + gidx);
+		
+		images.forEach((img, iidx) => {
 			
 			//Make each image appear clickable
 			img.style.cursor = 'pointer';
+			
+			img.style.width = img.style.width == "" ? def_width : img.style.width; 
 			
 			//On click:
 			//	add the images from the current div to the MainGallery, set the index, then show the Main Gallery
 			img.addEventListener('click', () => {
 				currentGalleryImages = Array.from(images);
-				showImage(index);
+				showImage(iidx);
 				MainGallery.classList.add('active');				
 			});
 		});

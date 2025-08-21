@@ -39,13 +39,13 @@ A colleague sent me a link. Hours later, I was still deep in a rabbit hole of as
 
 <p>I would like to say I was <a href="https://xkcd.com/356/">nerd sniped</a> by him, but I doubt he really thought too much of it before sending it. Knowing Brendan better than I know assembly vector mnemonics, I spent more time thinking about why it was sent than what was sent. He is a long time proponent of some of the standards within RISCV, and as you can see  below, it is comparing RISC-V, x86, and AArch64 across both GCC and Clang.</p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+<div class="image-gallery">
   <img src="Resources/2025/CompilerTest/11_Godbolt.png" alt="A Screenshot of godbolt code editor with three panels, one for each compiler." style="width: 80%; height: auto;">
 </div><br>
 
 <p>So I tried to spend some time thinking about why the RISCV approach might be better, the first thing that jumps out is that it is certainly shorter. This is even more true when only looking at the GCC results below.</p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+<div class="image-gallery">
   <img src="Resources/2025/CompilerTest/12_Godbolt_gcc.png" alt="A Screenshot of godbolt code editor with three panels, one for each compiler." style="width: 80%; height: auto;">
 </div><br>
 
@@ -63,7 +63,7 @@ A colleague sent me a link. Hours later, I was still deep in a rabbit hole of as
 
 <p>This was the point where we started writing some test cases for the code. Test cases I spent hours of my day working on instead of taking a break from programing. A foolish choice in the end. I ended up making four test functions: one bare-bones case to measure loading and setup time, one expected to be trivially optimized out, and finally, the unaligned and aligned cases.</p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+<div class="image-gallery">
   <img src="Resources/2025/CompilerTest/13_Code.png" alt="Code Screenshot" style="width: 60%; height: auto;">
 </div>
 <div style="display: flex; justify-content: center; align-items: center;">
@@ -72,42 +72,42 @@ A colleague sent me a link. Hours later, I was still deep in a rabbit hole of as
 
 <p>In the end, I 'won' an hour or two less sleep. But I would feel silly to do this if no one ever saw it. As expected when there is nothing to optimize, or the entire function is optimized out all tools perform similarly:</p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+<div class="image-gallery">
   <img src="Resources/2025/CompilerTest/00_AllTools_TrueEmpty.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
   <img src="Resources/2025/CompilerTest/01_AllTools_BasicEmpty.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
 </div>
 
 <p>Once we look at the performance of the aligned and unaligned adds we see more realistic results:</p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+<div class="image-gallery">
   <img src="Resources/2025/CompilerTest/02_AllTools_UnalignedSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
   <img src="Resources/2025/CompilerTest/03_AllTools_FullSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
 </div>
 
 <p>In these more realistic cases it is no longer useful to keep the unoptimized data in the graph. Without it we first see the minor variations in the tools at optimizing a mostly empty script which is not too remarkable:</p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+<div class="image-gallery">
   <img src="Resources/2025/CompilerTest/04_PerfSettings_TrueEmpty.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
   <img src="Resources/2025/CompilerTest/05_PerfSettings_BasicEmpty.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
 </div>
 
 <p>But this highlights a gap between GCC and Clang in vectorization:</p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+<div class="image-gallery">
   <img src="Resources/2025/CompilerTest/06_PerfSettings_UnalignedSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
    <img src="Resources/2025/CompilerTest/07_PerfSettings_FullSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
 </div>
 
 <p>This gap doesn't really go away, even when considering the different amounts of time the executables take to start up:</p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+<div class="image-gallery">
   <img src="Resources/2025/CompilerTest/08_AdjustedTimes_UnalignedSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
   <img src="Resources/2025/CompilerTest/09_AdjustedSum_Full_Sum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
 </div>
 
 <p>In fact the "Bad" vectorizatin of GCC does so much better it is worthwhile to remove clang from the results:</p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 5%;">
+<div class="image-gallery">
   <img src="Resources/2025/CompilerTest/10_GCCPerf_FullSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
   <img src="Resources/2025/CompilerTest/03_AllTools_FullSum.svg" alt="Code Screenshot" style="width: 45%; height: auto;">
 </div>
