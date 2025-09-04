@@ -1,0 +1,58 @@
+***LOC***
+tradeoffs.html
+***END***
+
+***TITLE***
+More Than a Robot Couch
+***END***
+
+***TAGS***
+Stories, University
+***END***
+
+***Summary***
+Fundamentally, engineering is just about choosing whats best. The hard part is just figuring out what is best. 
+***END***
+
+***Body***
+Getting caught up in my regrets used to feel like progress. After all, introspection is the first step to improvement. While important, introspection is fraught with peril. I believe that the person who can give you the harshest criticisms is also the easiest person you can lie to. 
+
+I hope it’s with a better mindset now, but I still think a lot about the past. Lately I have been thinking about an interaction I had with an elementary student while I was at UT. Despite the fact I never even learned their name I still think about what I could have done better. 
+
+I was helping to host an event where students could explore UT in my capacity as the Robotics and Automation Societies’ (RAS) outreach coordinator. I was there with a couple other RAS leaders who needed to meet their volunteering quota. I remember feeling so lucky to have something good to show to the students. We had just finished the robot couch, an amazing device that could travel pretty fast considering the weight.  I still remember telling the university about the hole the couch punched in the wall due to the controller getting disconnected during testing.
+
+<div class="image-gallery">
+  <img src="Resources/2025/Couch/RAS_Couch_1.webp" alt="Picture of the robot couch">
+  <img src="Resources/2025/Couch/RAS_Couch_2.webp" alt="Picture of the robot couch">
+</div>
+
+Maybe I am too old, or maybe my imagination was too stunted, but I think I would have felt a sense of a wonder if I had seen something like this as a kid. While I had not really worked on the couch, I still had a few pictures and I was really happy to be able to share it with others. 
+
+Sometimes it feel like I just slipped and fell into an engineering degree. Despite how often I joked that “we didn’t come here to be happy,” I really think for a certain kind of person, there isn’t a better place to be. 
+
+<div class="image-gallery">
+  <img src="Resources/2025/Couch/RAS_Couch_3.png" alt="Picture of me working on the robot couch" style="width: 40%;">
+</div>
+
+I remember when the kids came we started by just showing the couch working, but we quickly progressed to letting some of the kids who were interested briefly ride it while we remotely piloted it. After everyone was introduced to the big robot, the kids and the chaperones got into a loose semicircle around us. We talked to everyone there, about ourselves, about joining RAS, about engineering. But to me the main focus of this was always fostering a sense of curiosity, so the monologues quickly gave way to a lively Q&A.
+
+Towards the end of it, one of the kids asked me a question that put me off balance. He asked why we didn’t put solar panels on the couch so it could keep driving. I knew a lot about solar panels, and about this robot in front of me, but had never thought about it seriously like <i><em>that</i></em>.
+
+Even as I was saying it I thought my answer was weak. I think I stumbled through something like: solar panels were not in the design goal for this robot, and that if you ballparked the power output of a typical solar cell it would take several square meters of panels to give enough power. I vividly remember a chaperone reassuring the kid he had asked a good question while we talked with the next person.
+
+I wish I had been more articulate, or gave more feedback that I appreciated the question. In hindsight, I could have taken more time to answer the question. Instead, I just thought about giving an answer as fast as possible mainly because of my own ego. It did not jive with my self image that a curious child could say anything to get me off balance. In the end what a sad reason to not celebrate someone’s curiosity in an event meant to get people into this field. Improvement is a slow process, but even recently I occassionally get feedback that people find me hard to read; which just makes me wonder how I made the kid feel.
+
+<div class="image-gallery">
+  <img src="Resources/2025/Couch/TA_4.png" alt="Working on clarity" style="width: 40%;">
+</div>
+
+I think to do it again I would have started with thank you and some exposition about what I thought was unexpected. More generally I have been lamp-shading what I say to make it more clear. For example when nitpicking students about better ways to do things I often tell them not to worry that I am just ‘bullying’ them over small things. I did this because I wanted my students to understand I am proud of them even when I hope they do better.  
+
+Although it is cliché, I also wish that I had made clear that engineering is about trade-offs, about working within constraints. There is a joke that goes anyone can build a bridge (just keep adding rock until the gap is closed) but only an engineer can make a bridge that barely stays together. Talking about design goals and costs puts the cart before the horse. Design goals were the priorities chosen because of limitations.
+
+I should have asked a question back, like about what would be better to do add solar panels, put a bigger motor, add more batteries. I think this would help develop the right mindset, while also giving implicit positive feedback. It also would have allowed me to tell him that choosing the best thing you can is the essence of engineering, and that sometimes 'best' is hard to define. Something like that would have made that kid's memory about more than just a robot couch.
+***END***
+
+***MODTIME***
+September 03, 2025, 10:51 PM
+***END***
