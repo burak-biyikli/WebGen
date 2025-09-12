@@ -5,23 +5,20 @@ class Point {
 		this.xvel = xvel;
 		this.yvel = yvel;
 		this.MaxSize = size;
+		this.dttl = 4/Math.pow(ttl,2);
 		this.ottl = ttl ;
 		this.cttl = ttl ;
-		if (this.xvel==0 && this.yvel==0){
-			this.xvel=gR(-1,1)*AnimatedCanvas1.TimeScale;this.yvel=gR(-1,1)*AnimatedCanvas1.TimeScale;
-		}
-
 	}
-	get size(){
-		return this.intensity()*this.MaxSize;
+	size(){
+		return Math.max(0.01, this.intensity())*this.MaxSize;
 	}
-	update() { 
-		this.xpos+=this.xvel;
-		this.ypos+=this.yvel;
-		this.cttl--;
+	update(dt) { 
+		this.xpos += dt*this.xvel;
+		this.ypos += dt*this.yvel;
+		this.cttl -= dt;
 	}
 	intensity(){
-		return Math.sqrt(-(this.cttl)*(this.cttl - this.ottl)/ Math.pow(this.ottl/2, 2));
+		return Math.max((this.cttl)*(this.ottl-this.cttl)*this.dttl, 0.01);
 	}
 }
 
@@ -31,14 +28,13 @@ var	AnimatedCanvas1 = {
 	maxSize: 8,
 	density: .0001,
 	entityCap: 0,
-	TicksPerSecond: 30,
-	TimeScale: .3,
-	MSPerTick: 0,//1000/AnimatedCanvas1.TicksPerSecond,
+	TicksPerSecond: 60,
+	SecondsPerTick: 1/60,//1000/AnimatedCanvas1.TicksPerSecond,
 	AvgTTl: 16,
+	AvgVel: 4,
 	minRGB: 0x0F8A88,
 	maxRGB: 0xc0ffee,
 	linkLength: 96,
-	ATL: 0 //AnimatedCanvas1.AvgTTl*AnimatedCanvas1.TicksPerSecond
 }
 	
 function sRGB( min, max, ratio ){
@@ -49,19 +45,27 @@ function sRGB( min, max, ratio ){
 }
 
 function gR(low, high){
-	return Math.floor( Math.random() * (high-low+1) )+ low;
+	return Math.random()*(high-low) + low;
 }
 
 function EnableAnimatedCanvas1( CanvasElementID ){
-	AnimatedCanvas1.MSPerTick = 1000/AnimatedCanvas1.TicksPerSecond;
-	AnimatedCanvas1.ATL = AnimatedCanvas1.AvgTTl*AnimatedCanvas1.TicksPerSecond;
-
+	
 	var canvas = document.getElementById(CanvasElementID);
 	var ctx = canvas.getContext("2d");
 	ctx.shadowBlur = 0;
 	ctx.lineWidth = 2;
 	
-	setInterval( AnimateCanvas1, AnimatedCanvas1.MSPerTick , canvas, ctx);
+	AnimatedCanvas1.SecondsPerTick = 1/AnimatedCanvas1.TicksPerSecond;
+	setInterval( AnimateCanvas1, AnimatedCanvas1.SecondsPerTick*1000 , canvas, ctx);
+	
+	canvas.addEventListener('click', function(event) {
+		const rect = canvas.getBoundingClientRect();
+		AnimatedCanvas1.AllPoints.push( new Point( 
+			event.clientX - rect.left, event.clientY - rect.top, 
+			gR(-5,5)*AnimatedCanvas1.AvgVel, gR(-5,5)*AnimatedCanvas1.AvgVel, 
+			gR(AnimatedCanvas1.minSize,AnimatedCanvas1.maxSize), gR(AnimatedCanvas1.AvgTTl*0.2,AnimatedCanvas1.AvgTTl*0.6)) 
+		);	
+	});
 }
 
 function AnimateCanvas1( canvas, ctx ){
@@ -87,7 +91,10 @@ function AnimateCanvas1( canvas, ctx ){
 
 	//Create
 	while( AnimatedCanvas1.AllPoints.length < AnimatedCanvas1.entityCap ) {
-		AnimatedCanvas1.AllPoints.push( new Point( gR( 10, canvas.width), gR(10, canvas.height), gR(-1,1)*AnimatedCanvas1.TimeScale, gR(-1,1)*AnimatedCanvas1.TimeScale, gR(AnimatedCanvas1.minSize,AnimatedCanvas1.maxSize), gR(AnimatedCanvas1.ATL/2,AnimatedCanvas1.ATL*1.5)) );	
+		AnimatedCanvas1.AllPoints.push( new Point( 
+			gR( 10, canvas.width), gR(10, canvas.height), 
+			gR(-1,1)*AnimatedCanvas1.AvgVel, gR(-1,1)*AnimatedCanvas1.AvgVel, 
+			gR(AnimatedCanvas1.minSize,AnimatedCanvas1.maxSize), gR(AnimatedCanvas1.AvgTTl/2,AnimatedCanvas1.AvgTTl*1.5)) );	
 	}
 
 	//Update
@@ -97,7 +104,7 @@ function AnimateCanvas1( canvas, ctx ){
 	var ymult = Math.floor(canvas.width/div);
 
 	for(i=0; i<AnimatedCanvas1.AllPoints.length; i++){
-		AnimatedCanvas1.AllPoints[i].update();
+		AnimatedCanvas1.AllPoints[i].update(AnimatedCanvas1.SecondsPerTick);
 		var r = AnimatedCanvas1.AllPoints[i];
 		var index = Math.floor(r.xpos/div)+ymult*Math.floor(r.ypos/div);
 		dict[index] = dict[index] || [];
@@ -132,9 +139,9 @@ function AnimateCanvas1( canvas, ctx ){
 	}
 
 	//Show the state
-	for(i=0; i<AnimatedCanvas1.entityCap; i++){
+	for(i=0; i<AnimatedCanvas1.AllPoints.length; i++){
 		ctx.beginPath();
-		ctx.arc( AnimatedCanvas1.AllPoints[i].xpos, AnimatedCanvas1.AllPoints[i].ypos, AnimatedCanvas1.AllPoints[i].size, 0, 2 * Math.PI, false);
+		ctx.arc( AnimatedCanvas1.AllPoints[i].xpos, AnimatedCanvas1.AllPoints[i].ypos, AnimatedCanvas1.AllPoints[i].size(), 0, 2 * Math.PI, false);
 		ctx.fillStyle = sRGB(AnimatedCanvas1.minRGB, AnimatedCanvas1.maxRGB, AnimatedCanvas1.AllPoints[i].intensity() *.9 );
 		ctx.fill();
 		ctx.lineWidth = 2;
