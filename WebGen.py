@@ -329,20 +329,20 @@ def InterpretDataSnippet(FilePath):
 		parsed_time = ParseTimestamp(DataSnippet["MODTIME"])
 		assert not(parsed_time is None), f"Fatal: Could not parse MODTIME in {FilePath} saw {DataSnippet['MODTIME']}"
 		DataSnippet["MODTIMESTAMP"] = parsed_time
+		DataSnippet["MODTIMESHORT"] = parsed_time.strftime('%b. %d, %Y')
 	else:
 		mod_time = os.path.getmtime(FilePath)
-		DataSnippet["MODTIMESTAMP"]= datetime.fromtimestamp(mod_time)
-		DataSnippet["MODTIME"]     = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y, %I:%M %p')
+		DataSnippet["MODTIMESTAMP"] = datetime.fromtimestamp(mod_time)
+		DataSnippet["MODTIME"]      = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y, %I:%M %p')
+		DataSnippet["MODTIMESHORT"] = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y')
 		AppendMissingTimestamp(FilePath, mod_time) # The function we discussed before
 
 	return DataSnippet
 
 def GenerateIndexElement(DataSnipets):
 	global GlobalSnippets
-	indexData = ""
-	for Dict in DataSnippets:
-		indexData = indexData + "<a href='"+ "/"+ Dict["LOC"] + "'>"+Dict["TITLE"]+"</a> <br>\n"
-	GlobalSnippets["Index"] = indexData 
+	indexData = [ f"{Dict['MODTIMESHORT']} - <a href='/{Dict['LOC']}'>{Dict['TITLE']}</a>" for Dict in DataSnippets]
+	GlobalSnippets["Index"] = "<br>\n".join(indexData)
 
 def GenerateTagsElement(DataSnipets):
 	global GlobalSnippets
@@ -458,12 +458,13 @@ if __name__ == "__main__":
 	DataSnippets = InterpretDataSnippets( os.path.join(SaveDir, SRC, DATA) )
 	print("DataSnippets: " +str(DataSnippets))
 
-	print("Generating Index Element from snippets")
-	GenerateIndexElement(DataSnippets)
 	print("Generating Feed Element from snippets")
 	GenerateFeedElement(DataSnippets)
 	print("Generating Tags Element from snippets")
 	GenerateTagsElement(DataSnippets)
+	print("Generating Index Element from snippets")
+	GenerateIndexElement(DataSnippets)
+	
 	print("Global Snipets: ")
 	for s in GlobalSnippets:
 		print(f"\t{s}:{str(GlobalSnippets[s])}")

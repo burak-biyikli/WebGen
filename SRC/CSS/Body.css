@@ -55,8 +55,8 @@ h4 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
 
 #PageHeader {
   background-color: #e8e8e3; /* Darker Gray than the rest of the feed */
-  padding: 2em 1.5em; /*Top/Bottom and Left/Right*/
-  margin: 0em -1.5em; /*Oversizes div slightly, but maintains content area*/
+  padding: 2em 1.5em 0.5em 1.5em; /* top, right, bottom, left */
+  margin: 0em -1.5em 0.5em -1.5em; /*Oversizes div slightly, but maintains content area*/
   border-radius: 8px;
 }
 
