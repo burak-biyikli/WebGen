@@ -10,7 +10,7 @@ class Point {
 		this.cttl = ttl ;
 	}
 	size(){
-		return Math.max(0.01, this.intensity())*this.MaxSize;
+		return this.intensity()*this.MaxSize;
 	}
 	update(dt) { 
 		this.xpos += dt*this.xvel;
@@ -35,6 +35,9 @@ var	AnimatedCanvas1 = {
 	minRGB: 0x0F8A88,
 	maxRGB: 0xc0ffee,
 	linkLength: 96,
+	mouseDown: 0,
+	mouseX: 0,
+	mouseY: 0,
 }
 	
 function sRGB( min, max, ratio ){
@@ -48,6 +51,17 @@ function gR(low, high){
 	return Math.random()*(high-low) + low;
 }
 
+function createPointAtMouse(){
+	if( AnimatedCanvas1.mouseDown == 0){
+		return;
+	}
+	AnimatedCanvas1.AllPoints.push( new Point( 
+		AnimatedCanvas1.mouseX, AnimatedCanvas1.mouseY, 
+		gR(-5,5)*AnimatedCanvas1.AvgVel, gR(-5,5)*AnimatedCanvas1.AvgVel, 
+		gR(AnimatedCanvas1.minSize,AnimatedCanvas1.maxSize), gR(AnimatedCanvas1.AvgTTl*0.2,AnimatedCanvas1.AvgTTl*0.6)) 
+	);	
+}
+
 function EnableAnimatedCanvas1( CanvasElementID ){
 	
 	var canvas = document.getElementById(CanvasElementID);
@@ -56,15 +70,33 @@ function EnableAnimatedCanvas1( CanvasElementID ){
 	ctx.lineWidth = 2;
 	
 	AnimatedCanvas1.SecondsPerTick = 1/AnimatedCanvas1.TicksPerSecond;
-	setInterval( AnimateCanvas1, AnimatedCanvas1.SecondsPerTick*1000 , canvas, ctx);
+	setInterval( AnimateCanvas1,     AnimatedCanvas1.SecondsPerTick*1000 , canvas, ctx);
+	setInterval( createPointAtMouse, AnimatedCanvas1.SecondsPerTick*7000 , canvas, ctx);
+		
 	
-	canvas.addEventListener('click', function(event) {
+	
+	mosposf = function(event) {
 		const rect = canvas.getBoundingClientRect();
-		AnimatedCanvas1.AllPoints.push( new Point( 
-			event.clientX - rect.left, event.clientY - rect.top, 
-			gR(-5,5)*AnimatedCanvas1.AvgVel, gR(-5,5)*AnimatedCanvas1.AvgVel, 
-			gR(AnimatedCanvas1.minSize,AnimatedCanvas1.maxSize), gR(AnimatedCanvas1.AvgTTl*0.2,AnimatedCanvas1.AvgTTl*0.6)) 
-		);	
+		AnimatedCanvas1.mouseX = event.clientX - rect.left;
+		AnimatedCanvas1.mouseY = event.clientY - rect.top;
+	}
+	
+	canvas.addEventListener('mousedown', function(event) {
+		AnimatedCanvas1.mouseDown = 1;
+		mosposf(event);
+		createPointAtMouse();
+	});
+	
+	document.body.addEventListener('mouseup', function(event) {
+		AnimatedCanvas1.mouseDown = 0;
+	});
+	
+	document.body.addEventListener('mouseleave', function(event) {
+		AnimatedCanvas1.mouseDown = 0;
+	});
+	
+	document.body.addEventListener('mousemove', function(event) {
+		mosposf(event);
 	});
 }
 
