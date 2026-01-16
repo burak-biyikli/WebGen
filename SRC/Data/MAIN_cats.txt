@@ -1,0 +1,47 @@
+***LOC***
+justlikecats.html
+***END***
+
+***TITLE***
+Just like cats
+***END***
+
+***TAGS***
+Stories, Thoughts
+***END***
+
+***Summary***
+Sometimes I look at my sisters cat and wonder what he can understand.
+***END***
+
+***Body***
+
+My sister's cat is named Boba. He is a good sort of fellow, well behaved, polite... endlessly hungry. Often, I look at him and wonder what he sees. Of course his vision is different than mine. Sadly, he cannot see the full gamut of color. But I wonder what the things he sees means to him.
+
+<div class="image-gallery">
+  <img src="Resources/2025/Cats/catvision01.png" alt="A picture showing a landscape. Top is original, bottom is with a filter applied to emulate cat vision." style="width: 60%; height: auto;">
+</div><br>
+
+Animals are more capable than I would expect. We have seen them demonstrate emotion, speech, language and reasoning. I have read <a href="https://www.reddit.com/r/PetsWithButtons/comments/1ottpzk/my_cat_has_started_to_use_vacuum_as_a_curse_word/">stories</a> which I find credible about animals having an ability to communicate meaningful concepts. Boba has learned. Boba will come when called by name. Boba will not step on my keyboard. Boba will (usually) get down from an object when asked. 
+
+Cats like Boba are surprisingly capable, yet tragically, so much less able to  than a person. I can't teach a cat the 'why' just the 'what'. I don't know how I could explain to Boba that the computer is important to me, or that if he does manage to chew that wire it will hurt him. Cats generally have weak causal understanding <a href="https://www.bps.org.uk/psychologist/how-train-cat">which causes punishment to fail</a> as a training method. Similarly, cats may even view people as just a "<a href="https://web.archive.org/web/20250212004945/https://time.com/3898677/actually-your-cat-thinks-you-are-a-giant-cat/#expand"> larger, non-hostile </a>" cat. Isn't it sad that although cats are able to operate in our world, they ultimately live entirely separate lives?
+
+<div class="image-gallery">
+  <img src="Resources/2025/Cats/Boba.jpg" alt="Boba the cat curled up, sitting on a blue chair" style="width: 60%; height: auto;">
+</div><br>
+
+If you are like me this raises a question. Do you and I live in the same world or are we just sharing physical space?
+
+It used to be true, not even too long ago, that most people could reasonably understand 'everything'. You lived in a house made of local materials, and wore clothes that were made of natural materials, and used tools created by craftsmen, and ate food cooked by people like you. Sure, <b>Great People</b> would push the bounds of what people knew and built, but there was not such abundance and scale that this deeply impacted our everyday lives. 
+
+We wake up to 'lights' and 'sound' in your 'bed'. Walk across the 'floor', to put on 'clothes'. Hopefully eat 'food', and 'travel' down some 'path' to 'work'. The verbs just make everything seem so mundane when every noun has the work of innumerable hands. 
+
+There is so much complexity in this world. The canyon between what is known and what is knowable has become an ocean, yet grows every day. There is no choice but to take things for granted. There are uncountable people who spend their whole lives making complexity 'invisible' by design. Natural ignorance is not enough, it too needs to be manufactured.
+
+The result is like a Greek Tragedy. Progress that makes it easier than ever to learn more than ever ends up making it easier and often necessary to live in separate worlds. I talk to a friend, and the thing that they spent the whole career on can <i>mean</i> nothing to me. I want to understand, but I more or less have to take their problems, concerns, and success at face value. I talk about the future, and the facts, causes, and outcomes feel more like a religion than a science. The different abstractions we have in our head about the world make it hard to communicate without trust.
+
+***END***
+
+***MODTIME***
+January 15, 2026, 10:25 PM
+***END***
