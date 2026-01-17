@@ -1,0 +1,51 @@
+***LOC***
+microarchretrospective.html
+***END***
+
+***TITLE***
+Microarch Retrospective
+***END***
+
+***TAGS***
+Thoughts, University, Projects
+***END***
+
+***Summary***
+Although Microarchitecture is Yale Patt's signature class, is it really the best class for an aspiring microarchitect to take?
+***END***
+
+***Body***
+
+As a student who did reasonably well in Patt's Microarch class, I have been asked by many bright undergraduate students if the class is right for them. In every talk I have had, I don't think I have ever endorsed 'EE 382N: Microarchitecture' as a class they should take. This is despite the fact that I personally, would take the class again if I were to redo my masters degree.
+
+When giving advice, my first question is usually 'Why?'. So I usually ask a potential student of microarch why. The response is most often 'I want to learn X' or 'I want to do X'. At which point we look at the registar and I recomend some of the great classes at UT which teach X better. For some common X, I might say:
+
+<ul>
+  <li>Microarchitecture --> CS395T: Prediction Mechanisms in Computer Architecture</li>
+  <li>How computers work --> CS 380L Advanced Operating Systems</li>
+  <li>How to get high performance --> EE 382N - 20-Comp Arch: Parlism/Lclty</li>
+  <li>How to build an IC/CPU --> EE 460R, Introduction to VLSI Design</li>
+  <li>How to make something work --> EE 382M – Verification of Digital Systems</li>
+</ul>
+
+To this day, I don't think this has convinced anyone to change course. The inital stated motivation was inaccurate. After a bit more talking, we usually get into one of three motivators: Desperation, Prestige, Challenge. Desperation to get a job, hoping that microarch will tip the scales. Prestige that comes from doing something that is known to be difficult. Or just the challenge seeking behavior that got a student into a good school pulling them into another adventure. These motivations are somewhat similar, especially in the way they make you shrug off warnings. The warnings only add to the allure. 
+
+To be clear, Microarch <b>is</b> difficult. Just in a 'reducing a pile of boulders into dust' way.
+
+You don't know a lot about boulders, but how hard can it really be to get a couple? The answer as it turns out, is very difficult. Once you do find a boulder, it is much larger than the textbook definition led you to believe. The implicit 'just make a pile' concepts of a plan you had when first considering the problem immediately proves inadequate. So you start trying to reduce scope, except scope is what brought you here. You are sure the next boulder will be easier anyways. 
+
+Needless to say, it takes a long time to get the project to 'step 1: pile of boulders'. 
+
+Eager to make up time you are tempted to jump into the real work. Although you aren't allowed to use external tools, you are given a hammer. Swinging a hammer is easy. At first, there is a certain visceral pleasure in breaking larger rocks into smaller rocks. Eventually you realize the costs. Your arms ache. You haven't slept. Your other responsibilities are catching up with you. In my year, everyone I knew who took the class got dumped including me. The recursive nature of the problem becomes painfully apparent. Each rock keeps becoming two. Smaller rocks much easier to break.You wish for a better tools. But there is so little time. The best you can do is attach a large rock to the hammer. It is harder to lift, but at least it takes fewer swings. Besides, you would have to stop smashing rocks to get a better tool. So, over and over and over and over again down the hammer comes. 
+
+At the end of it, when you have reduced a hill into a sand pit, you will feel pride, loss, and exhaustion. Was it a good use of your limited time and energy? Well, it depends how much you enjoy having sand (Though there are easier ways to get it) and how little you value your time.
+
+More concretely:
+<ul>
+  <li>The lack of structure in the class makes it hard for students to estimate how much work the class will take, and makes it hard to tell if you have done things correctly until your errors are months old. Your tests don't have firm grounding, and it is hard for pepople to have similar enough views of the problem to agree to the specificity timing requires</li>
+  <li>Structural Verilog takes a certain mindset to write that is not really taught at UT, and you are making something with a lot more moving parts than you might be used to. The class to a large degree assumes a lot of knowelege as a prerequisite that it will make no effort to teach you. Lectures and assignments are often more distracting than useful despite the TA's best efforts</li>
+  <li>Mistakes and miscommunication can easily set you back weeks, the cost of a miscomunication can be fundamental redesigns of large blocks, especially if your homebrew tooling is not adaptable </li>
+  <li>the class is also not very parallelized unless everyone is good at this kind of work. It is very easy to have someone try to make contributuions but be blocked if they don't have a good idea of what the other parts look like</li>
+</ul>
+
+***END***
