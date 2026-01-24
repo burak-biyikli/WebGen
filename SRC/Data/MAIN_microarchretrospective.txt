@@ -122,6 +122,7 @@ In the end, I think the most important thing 'EE 382N: Microarchitecture' teache
 
 <br><br><br>
 * - I will admit however, that the low level at the class will force you to remove gaps from your knowledge. There was a misconception held in the beginning of the project that it was feasible to read from a register file in the middle of a cycle for example. This caused several stages to require redesigns once we noticed that assumption had made it into our docs.
+<br>
 ** - This is admittedly a niche taxonomy I learned from my colleagues who go bouldering (hahaha...), but it goes: 
 Type I fun   -> Fun in the moment, 
 Type II fun  -> Fun with hindsight, 
