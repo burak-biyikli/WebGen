@@ -1,0 +1,33 @@
+***LOC***
+links.html
+***END***
+
+***TITLE***
+Links
+***END***
+
+***TAGS***
+Projects
+***END***
+
+***Summary***
+This page is just a collection of links to my other work or other pages that are relevant to me.
+***END***
+
+***Body***
+
+<ul>
+  <li>My Linkedin -> <a href="https://www.linkedin.com/in/burak-biyikli/">https://www.linkedin.com/in/burak-biyikli/</a> </li>
+  <li>My Github page -> <a href="https://github.com/burak-biyikli">https://github.com/burak-biyikli</a> </li>
+  <li>My Youtube channel -> <a href="https://www.youtube.com/@burakbiyikli">https://www.youtube.com/@burakbiyikli</a> </li>
+  <li>My first mod -> <a href="https://github.com/burak-biyikli/XLHullMods">https://github.com/burak-biyikli/XLHullMods</a> </li>
+  <li>445L Winners (Including me!) -> <a href="https://github.com/ECE445L/ECE445L-Winners">https://github.com/ECE445L/ECE445L-Winners</a> </li>
+  <li>445L Github Organization -> <a href="https://github.com/ECE445L">https://github.com/ECE445L</a> </li>
+  <li>My Degrees from UT Austin! -> <a href="https://web.archive.org/web/20260125040740/https://utdirect.utexas.edu/apps/degree/degrees/nlogon/?s_last_name_read=&s_last_isn_read=&s_first_name_read=&s_first_isn_read=&s_first_time_sw=X&s_start_name=biyikli%2C+burak&s_start_page=Submit%2A"> Internet Archive Link</a> </li> 
+</ul>
+
+***END***
+
+***MODTIME***
+August 08, 2025, 03:39 PM
+***END***
