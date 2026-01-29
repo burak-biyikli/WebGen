@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+        <channel>
+		***SITE_TITLE***
+               	***Description***
+                ***Domain***
+                ***Language***
+                <ttl>1440</ttl>
+                <docs>https://www.rssboard.org/rss-specification</docs>
+                <generator>Web Gen</generator>
+		***RSS***
+        </channel>
+</rss>

@@ -1,0 +1,27 @@
+***LOC***
+rss.xml
+***END***
+
+***TITLE***
+RSS Feed (XML)
+***END***
+
+***SITE_TITLE***
+		<title>Burak Biyikli's Blog</title>
+***END***
+
+***Description***
+		<description>A personal blog about electronics and engineering.</description>
+***END***
+
+***Domain*** 
+		<domain>http://burakbiyikli.com</domain>
+***END***
+
+***Language***
+		<language>en-us</language>
+***END***
+
+***MODTIME***
+August 08, 2025, 03:39 PM
+***END***

@@ -3,7 +3,7 @@
 import os
 import re
 import shutil
-from datetime import datetime
+from datetime import datetime, timezone
 
 GEN = "GEN"
 SRC = "SRC"
@@ -22,11 +22,18 @@ RunDir = os.getcwd() #Where The Shell is when the script is run
 SaveDir = os.path.dirname(os.path.realpath(__file__)) #Saved Dir
 
 #Differs from data snippets, as these as associated with every page.
-GlobalSnippets = {}
-#GlobalSnippets["TestTag"] = "TestContent"
+GlobalSnippets = {
+	#"EXAMPLE_TAG": """This content will be filled into every \
+	#                  instance of the example tag in the data files""",
+	#Note the following will be populated:
+	#  CSS is list of all style sheets
+	#  JS is list of all scripts
+	#  Index is html for the list of all pages
+	#  Feed is html for the most recently created pages
+	#  RSS  is xml mirroring the content of the feed
+	#  Tags is html for the pages grouped by common tags
+}
 
-#Index is list of all pages
-#CSS is list of all style sheets
 
 #Take folder of txt files and process them into templates to be used
 class Template():
@@ -88,31 +95,30 @@ class Template():
 		return "".join(OutStr)
 
 #Clear folder for new files assuming it is empty or contains a claimed token
-def ClearOutputFolder(directory):
-	print("Checking directory")
-	FileNames = os.listdir(directory)
-	if ( len(FileNames) != 0 ):
-		if( not "delete.ok" in FileNames):
-			print("Directory has files, operation deletes files in folder!")
-			print("Override check by placing a file named delete.ok in folder")
-			return False
-		print("Operating on: "+ directory)
-		print("")
-		input("Operation will delete folders, press enter to continue...")
-		for filename in FileNames:
-			if "." in filename:
-				os.unlink(os.path.join(directory,filename))
-			else:
-				shutil.rmtree( os.path.join(directory,filename) )
-		return True
-	elif ( len(FileNames) == 0):
-		return True
-	return False
+def ReclaimOutputFolder(directory: str) -> bool:
+	print(f"Checking '{directory}' for lockfile...")	
+	path_exists = os.path.exists(directory)
+	is_folder   = path_exists and os.path.isdir(directory)
+	can_delete  = is_folder   and ("delete.ok" in os.listdir(directory))
 
-#Mark folder as used by script
-def CreateClaimedFolderToken(directory):
+	if can_delete:
+		input(f"Operation will delete all contents of '{directory}', press enter to continue...")
+		shutil.rmtree( directory )
+	elif is_folder:
+		print(f"Directory '{directory}' has files, but no lockfile!")
+		print("Create a file named delete.ok in folder to continue. Exiting...")
+		quit()
+	elif path_exists:
+		print(f"Path '{directory}' exists, but is not a directory!")
+		print("Please ensure that the path resolves to either a folder or to a free name. Exiting...")
+		quit()
+	else:
+		print(f"Creating '{directory}' as a directory...")
+		
+	#(Re)claim the folder for Web Gen
+	os.makedirs(directory, exist_ok=True)
 	with open(os.path.join(directory,"delete.ok"), "w") as claim:
-		claim.write("This directory is claimed and is subject to being deleted in full")
+		claim.write("This directory's content was created by Web Gen. Contents are subject to being deleted in full.")
 
 #Create a html snippet that will link in the template
 def ProcessCSS(CSSdirectory, GENDirectory):
@@ -157,16 +163,13 @@ def CopyJS( JSdirectory, GENDirectory ):
 # Recursively copies the entire contents of the resource directory.
 # Asserts that the destination does not exist before copying.
 def CopyRES(RESdirectory, GENDirectory):
-   
 	print("Copying Resource Files")
 	# This assertion ensures we don't accidentally copy into an existing folder.
 	# The ClearOutputFolder function should prevent this, but this is a good safeguard.
 	assert not os.path.exists(GENDirectory), f"Fatal: Resource destination {GENDirectory} already exists. Aborting."
-	
 	shutil.copytree(RESdirectory, GENDirectory)
 
-
-#Proccess all templates into template objects 
+#Process all templates into template objects 
 def ProcessIntoTemplates(directory):
 	templates = []
 	templateFiles = os.listdir(directory)
@@ -174,7 +177,7 @@ def ProcessIntoTemplates(directory):
 		templates.append( Template( os.path.join(directory, File) ) )
 	return templates
 
-def ProccessGlobalSnippets(directory):
+def ProcessGlobalSnippets(directory):
 	global GlobalSnippets
 	FileLists = os.listdir(directory)
 	for file in FileLists:
@@ -375,10 +378,11 @@ def StripHTML(HTML_Text: str) -> str:
 	clean_text = re.sub(cleaner, '', HTML_Text)
 	return clean_text
 
-# Generates an HTML feed of the most recent pages. Expects DataSnippets to be in order from most to least recent
-def GenerateFeedElement(DataSnippets: list, num_items: int = 7, max_length: int = 255):
+# Generates an HTML/XML feed of the most recent pages. Expects DataSnippets to be in order from most to least recent
+def GenerateFeedAndRSSElements(DataSnippets: list, num_items: int = 7, max_length: int = 255):
 	global GlobalSnippets
 	feed_html = ""
+	rss_items = []
 	for i, snippet in enumerate(DataSnippets[:num_items]):
 		
 		# Get the body text, or an empty string if it doesn't exist
@@ -393,6 +397,14 @@ def GenerateFeedElement(DataSnippets: list, num_items: int = 7, max_length: int 
 		else:
 			preview_text = (plain_text[:(max_length-3)] + '...')
 		
+		#Create the RSS Element for this feed item
+		item_elems = [f"<item>",
+					  f"\t<title>{snippet['TITLE']}</title>",
+					  f"\t<link>http://{Domain}/{snippet['LOC']}</link>",
+					  f"\t<description>{preview_text}</description>",
+					  f"</item>"]
+		rss_items.append( "\n\t\t".join(item_elems) )
+		
 		# Create the HTML for this feed item
 		feed_html += f"""\
 <div class="feed-item">
@@ -403,6 +415,15 @@ def GenerateFeedElement(DataSnippets: list, num_items: int = 7, max_length: int 
 	# Wrap the entire output in a container
 	GlobalSnippets["Feed"] = f'<br><br><div class="feed-container"><h3>Recent Updates</h3>{feed_html}</div>'
 
+	#Finish creating the RSS XML
+	page_time = DataSnippets[0]["MODTIMESTAMP"] if len(DataSnippets) != 0 else datetime.now(timezone.utc)
+	page_time = page_time.astimezone() 
+	curr_time = datetime.now(timezone.utc)
+	rss_time = min(page_time, curr_time).strftime("%a, %d %b %Y %H:%M:%S GMT")
+
+	rss_items.insert(0, f"<pubDate>{rss_time}</pubDate>")
+	rss_items.insert(0, f"<lastBuildDate>{rss_time}</lastBuildDate>")
+	GlobalSnippets["RSS"] = "\n\t\t" + "\n\t\t".join(rss_items) + "\n"
 
 def GeneratePages(outPutdir, DataSnippets, templates):
 	for DataSnippet in DataSnippets:
@@ -424,14 +445,8 @@ def GeneratePages(outPutdir, DataSnippets, templates):
 if __name__ == "__main__":
 	print("Run from: ", RunDir, "\tExececuting on: ", SaveDir) 
 
-	if( ClearOutputFolder( os.path.join(SaveDir, GEN) ) ):
-		print("Directory clear")
-	else:
-		print("Error clearing folder of contents")
-		quit()
-
-	print("Marking folder for future use")
-	CreateClaimedFolderToken( os.path.join(SaveDir, GEN) )
+	#Check for the delete.ok lockfile, clearing and creating the folder as needed.
+	ReclaimOutputFolder( os.path.join(SaveDir, GEN) )
 
 	#Creates CSS Element
 	print("Proccessing CSS Files")
@@ -451,7 +466,7 @@ if __name__ == "__main__":
 		print("\t"+t.getName())
 
 	print("Creating Global Snippets from files in: " + os.path.join(SaveDir, SRC, GLOBALS))
-	ProccessGlobalSnippets(os.path.join(SaveDir, SRC, GLOBALS))
+	ProcessGlobalSnippets(os.path.join(SaveDir, SRC, GLOBALS))
 	print("Global Snipets: "+ str(GlobalSnippets))
 
 	print("Reading main data from: " + os.path.join(SaveDir, SRC, DATA))
@@ -459,7 +474,7 @@ if __name__ == "__main__":
 	print("DataSnippets: " +str(DataSnippets))
 
 	print("Generating Feed Element from snippets")
-	GenerateFeedElement(DataSnippets)
+	GenerateFeedAndRSSElements(DataSnippets)
 	print("Generating Tags Element from snippets")
 	GenerateTagsElement(DataSnippets)
 	print("Generating Index Element from snippets")
