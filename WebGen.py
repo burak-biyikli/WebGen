@@ -398,11 +398,13 @@ def GenerateFeedAndRSSElements(DataSnippets: list, num_items: int = 7, max_lengt
 			preview_text = (plain_text[:(max_length-3)] + '...')
 		
 		#Create the RSS Element for this feed item
+		#TODO fix timezone
 		item_elems = [f"<item>",
 					  f"\t<title>{snippet['TITLE']}</title>",
 					  f"\t<link>http://{Domain}/{snippet['LOC']}</link>",
 					  f"\t<guid>http://{Domain}/{snippet['LOC']}</guid>",
 					  f"\t<description>{preview_text}</description>",
+					  f"\t<pubDate>{snippet["MODTIMESTAMP"].strftime("%a, %d %b %Y %H:%M:%S")} CST</pubDate>",
 					  f"</item>"]
 		rss_items.append( "\n\t\t".join(item_elems) )
 		
