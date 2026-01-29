@@ -401,6 +401,7 @@ def GenerateFeedAndRSSElements(DataSnippets: list, num_items: int = 7, max_lengt
 		item_elems = [f"<item>",
 					  f"\t<title>{snippet['TITLE']}</title>",
 					  f"\t<link>http://{Domain}/{snippet['LOC']}</link>",
+					  f"\t<guid>http://{Domain}/{snippet['LOC']}</guid>",
 					  f"\t<description>{preview_text}</description>",
 					  f"</item>"]
 		rss_items.append( "\n\t\t".join(item_elems) )
@@ -420,9 +421,9 @@ def GenerateFeedAndRSSElements(DataSnippets: list, num_items: int = 7, max_lengt
 	page_time = page_time.astimezone() 
 	curr_time = datetime.now(timezone.utc)
 	rss_time = min(page_time, curr_time).strftime("%a, %d %b %Y %H:%M:%S GMT")
-
 	rss_items.insert(0, f"<pubDate>{rss_time}</pubDate>")
 	rss_items.insert(0, f"<lastBuildDate>{rss_time}</lastBuildDate>")
+	rss_items.insert(0, f'<atom:link href="http://{Domain}/rss.xml" rel="self" type="application/rss+xml" />')
 	GlobalSnippets["RSS"] = "\n\t\t" + "\n\t\t".join(rss_items) + "\n"
 
 def GeneratePages(outPutdir, DataSnippets, templates):

@@ -14,8 +14,8 @@ RSS Feed (XML)
 		<description>A personal blog about electronics and engineering.</description>
 ***END***
 
-***Domain*** 
-		<domain>http://burakbiyikli.com</domain>
+***Link*** 
+		<link>http://burakbiyikli.com</link>
 ***END***
 
 ***Language***

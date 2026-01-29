@@ -1,49 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
         <channel>
 		<title>Burak Biyikli's Blog</title>
 		<description>A personal blog about electronics and engineering.</description>
-		<domain>http://burakbiyikli.com</domain>
+		<link>http://burakbiyikli.com</link>
 		<language>en-us</language>
                 <ttl>1440</ttl>
                 <docs>https://www.rssboard.org/rss-specification</docs>
                 <generator>Web Gen</generator>
 
+		<atom:link href="http://BurakBiyikli.com/rss.xml" rel="self" type="application/rss+xml" />
 		<lastBuildDate>Sat, 24 Jan 2026 02:01:00 GMT</lastBuildDate>
 		<pubDate>Sat, 24 Jan 2026 02:01:00 GMT</pubDate>
 		<item>
 			<title>A Microarchitecture Retrospective</title>
 			<link>http://BurakBiyikli.com/microarchitectureretrospective.html</link>
+			<guid>http://BurakBiyikli.com/microarchitectureretrospective.html</guid>
 			<description>Microarchitecture is Yale Patt's signature class and widely considered the hardest course offered by the department. But is it the best place to learn CPU design, when the assignment makes you balance design complexity and tooling development against a...</description>
 		</item>
 		<item>
 			<title>Just like cats</title>
 			<link>http://BurakBiyikli.com/justlikecats.html</link>
+			<guid>http://BurakBiyikli.com/justlikecats.html</guid>
 			<description>Sometimes I look at my sisters cat and wonder what he can understand. My sister's cat is named Boba. He is a good sort of fellow, well behaved, polite... endlessly hungry. Often, I look at him and wonder what he sees. Of course his vision is different ...</description>
 		</item>
 		<item>
 			<title>More Than a Robot Couch</title>
 			<link>http://BurakBiyikli.com/tradeoffs.html</link>
+			<guid>http://BurakBiyikli.com/tradeoffs.html</guid>
 			<description>Fundamentally, engineering is just about choosing whats best. The hard part is just figuring out what is best. Getting caught up in my regrets used to feel like progress. After all, introspection is the first step to improvement. While important, intro...</description>
 		</item>
 		<item>
 			<title>My Custom 8-Bit CPU</title>
 			<link>http://BurakBiyikli.com/ugcpu.html</link>
+			<guid>http://BurakBiyikli.com/ugcpu.html</guid>
 			<description>How I learned to let go of small things like ‘value proposition’, ‘opportunity cost’ and ‘reason’ in order to embrace the transistor. In the later half of my internship at AMD in 2019, I was struck by the Muse. I had just seen the Monster 6502, which i...</description>
 		</item>
 		<item>
 			<title>On The Balance Of Words</title>
 			<link>http://BurakBiyikli.com/corporateebalance.html</link>
+			<guid>http://BurakBiyikli.com/corporateebalance.html</guid>
 			<description>Being clear about what you mean is a skill, but being clear while avoiding accountability for the consequences is a profession Everybody knows that lying is wrong. Or at the very least, that lying too much will get you in trouble. Everybody also knows ...</description>
 		</item>
 		<item>
 			<title>Text Stripping Tool</title>
 			<link>http://BurakBiyikli.com/textstripper.html</link>
+			<guid>http://BurakBiyikli.com/textstripper.html</guid>
 			<description>This is a simple tool that I made to strip HTML out of transcripts I was copying and pasting. I also ocasionally run into situations where there are many superscripts and it gets tedious to remove them all by hand. Just note that the tool is a little i...</description>
 		</item>
 		<item>
 			<title>Micro-Benchmarking Compiler Auto-Vectorization</title>
 			<link>http://BurakBiyikli.com/2025compilertest.html</link>
+			<guid>http://BurakBiyikli.com/2025compilertest.html</guid>
 			<description>A colleague sent me a link. Hours later, I was still deep in a rabbit hole of assembly, auto-vectorization, and benchmarking GCC vs. Clang. One of my long time colleagues Brendan sent me a link that you can view HERE. Naturally, I opened it as soon as ...</description>
 		</item>
         </channel>
