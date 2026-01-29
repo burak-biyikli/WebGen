@@ -1,0 +1,3 @@
+***RSS_DISCOVERY***
+<link rel="alternate" type="application/rss+xml" title="Burak's RSS Feed" href="http://burakbiyikli.com/rss.xml">
+***END***

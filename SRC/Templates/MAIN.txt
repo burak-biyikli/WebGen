@@ -5,6 +5,7 @@
 		<title>
 			***TITLE***
 		</title>
+		***RSS_DISCOVERY***
 		***CSS***
 		***JS***
 		***LOCAL***
