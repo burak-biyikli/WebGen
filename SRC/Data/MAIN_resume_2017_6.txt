@@ -1,0 +1,25 @@
+***LOC***
+resume_2017_6.html
+***END***
+
+***TITLE***
+Burak's Resume (2017-6)
+***END***
+
+***Summary***
+This was the resume that I was able to use to apply to my first engineering job at Vast. Admittedly the hiring process was more based on a group interview, and I am not sure how much my resume factored into the choice they made. I think it was the networking after the interview that mattered more. I remember showing my machine learning projects to the CTO/Chief Data Scientist of the company Prof. David Franke, and him being interested in what I did. I think it was that interaction that really got my foot in the door. 
+***END***
+
+***Body***
+<iframe src="/Resources/Resumes/ResumeJun2017.pdf" width="100%" height="600">
+This browser does not support PDFs. Please download the PDF to view it: Download PDF
+</iframe>
+***END***
+
+***TAGS***
+Resume
+***END***
+
+***MODTIME***
+June 06, 2017, 01:40 PM
+***END***

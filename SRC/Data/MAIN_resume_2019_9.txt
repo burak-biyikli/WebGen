@@ -1,0 +1,31 @@
+***LOC***
+resume_2019_9.html
+***END***
+
+***TITLE***
+Burak's Resume (2019-9)
+***END***
+
+***Summary***
+I created this resume after leaving AMD, with the goal of getting into digital design.
+***END***
+
+***Body***
+AMD was a lot of fun. I still remember playing board games during lunch with my work buddy James Creamer (If you see this and I misspelled your name let me know). I also remember staying at work late, both because we had bring-up for a new chip during my internship, and because I overlapped my last week of Finals with my first week of work.
+
+My manager Shekhar Singh joked during my first week as an Automated Test Equipment (ATE) Engineer, that it was good we had the Advantest handlers. Otherwise I would be testing the chips by hand. Funnily enough the Chiller for the handler broke, and to meet a deadline me and James spent a whole day loading the chips into a test machine by hand. I still remember him resting his eyes to the white noise. 
+
+It was also during my time at AMD I started my 8 bit CPU project.
+
+<iframe src="/Resources/Resumes/ResumeSep2019.pdf" width="100%" height="600">
+This browser does not support PDFs. Please download the PDF to view it: Download PDF
+</iframe>
+***END***
+
+***TAGS***
+Resume
+***END***
+
+***MODTIME***
+September 12, 2019, 02:53 PM
+***END***

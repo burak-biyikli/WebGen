@@ -1,0 +1,25 @@
+***LOC***
+resume_2018_2.html
+***END***
+
+***TITLE***
+Burak's Resume (2018-2)
+***END***
+
+***Summary***
+While I interned at Vast, I had the fortune of working with Jackson Savage. We were both high school students at the time, and became friends. At a the end of Vast internship I was introduced to Jackson's Father Jason. He gave me a template which the Resume was based off of. Seeing my interest in technology he suggested that I apply to Silicon Labs internship program.
+***END***
+
+***Body***
+<iframe src="/Resources/Resumes/ResumeFeb2018.pdf" width="100%" height="600">
+This browser does not support PDFs. Please download the PDF to view it: Download PDF
+</iframe>
+***END***
+
+***TAGS***
+Resume
+***END***
+
+***MODTIME***
+February 18, 2018, 11:28 PM
+***END***

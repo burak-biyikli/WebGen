@@ -1,0 +1,25 @@
+***LOC***
+resume_2024_10.html
+***END***
+
+***TITLE***
+Burak's Resume (2024-10)
+***END***
+
+***Summary***
+This was my resume after spending a summer doing research at UT Austin
+***END***
+
+***Body***
+<iframe src="/Resources/Resumes/ResumeOct2024.pdf" width="100%" height="600">
+This browser does not support PDFs. Please download the PDF to view it: Download PDF
+</iframe>
+***END***
+
+***TAGS***
+Resume
+***END***
+
+***MODTIME***
+October 08, 2024, 04:26 PM
+***END***

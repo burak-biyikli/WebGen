@@ -1,0 +1,29 @@
+***LOC***
+resume_2021_12.html
+***END***
+
+***TITLE***
+Burak's Resume (2021-12)
+***END***
+
+***Summary***
+This was my resume after returning to TI, but to a different team than before.
+***END***
+
+***Body***
+Robert Stranghoener, my manager from my first internship, introduced me to Alex Titriku when he got the news our group CAE was being dissolved. Alex and my new team were based in California creating custom silicon for TI's customers in the area. Alex introduced me to design verification. When working with Alex, I always felt that if there were more hours in the day he would be able to do anything anyone on the team was doing. With Alex's help I became much better at Verilog.
+
+During this time I was lucky to have a great roommate named Joshua Alderson. Joshua was a wealth of knowledge. He was a good cook, knowledgeable about personal fitness, and told some great stories. During my time in California I biked to work every day, and me and Joshua often went to the gym together. 
+
+<iframe src="/Resources/Resumes/ResumeDec2021.pdf" width="100%" height="600">
+This browser does not support PDFs. Please download the PDF to view it: Download PDF
+</iframe>
+***END***
+
+***TAGS***
+Resume
+***END***
+
+***MODTIME***
+December 04, 2021, 10:05 PM
+***END***

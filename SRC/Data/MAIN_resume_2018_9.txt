@@ -1,0 +1,33 @@
+***LOC***
+resume_2018_9.html
+***END***
+
+***TITLE***
+Burak's Resume (2018-9)
+***END***
+
+***Summary***
+This was the resume that I wrote shortly after finishing my internship at Silicon Labs.
+***END***
+
+***Body***
+I remember being blown away at the quality of people at Silicon Labs. At that time, the company felt more like a startup than I had expected, and I believed HR when they told me about the quality of the employees. I still remember some of my colleagues from Silicon Labs. I made friends with Roy Stracovsky, Cole Thompson, Quinn Buoy, and Leigh Gonik.
+
+Roy had recently won several high profile high school science fair competitions, and got to meet the governor of Texas as a result. Roy had a talent for juggling and the dexterity to quickly empty a bowl of marbles with chopsticks. We talked about compilers, and how he had home-brewed a forth runtime. I was so intrigued that he had made a CPU as part of his high-school curriculum.
+
+Cole and Quinn were both great mentors of mine. Cole was a great software engineer with knowledge of embedded systems who was coming up on the end of his bachelors degree. He motivated me to become a leader in IEEE RAS, and to write better software. Quinn was a younger more driven man than Cole, I remember Quinn had ambitions of climbing the ladder and starting a business. It was Quinn who Introduced me to Prof. Mark McDermott in my freshman year. Cole and Quinn helped me achieve more during my time at UT.
+
+Despite the people I was eager to work somewhere else. I remember being shocked that I was paid 14 dollars an hour, after the interviewer stating I would get in the 30 dollar range as an intern. Despite the fact I did engineering work for the CAD/Foundry Teams; Silicon Labs pay scale and the fact I had not taken In Residence classes at UT yet meant that was what I would be paid. Although unjustified, I remember feeling personally betrayed. I worked very hard to get a better job somewhere else, somewhere closer to the silicon. 
+
+<iframe src="/Resources/Resumes/ResumeSep2018.pdf" width="100%" height="600">
+This browser does not support PDFs. Please download the PDF to view it: Download PDF
+</iframe>
+***END***
+
+***TAGS***
+Resume
+***END***
+
+***MODTIME***
+September 18, 2018, 11:37 AM
+***END***

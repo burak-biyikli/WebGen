@@ -1,0 +1,29 @@
+***LOC***
+resume_2023_11.html
+***END***
+
+***TITLE***
+Burak's Resume (2023-11)
+***END***
+
+***Summary***
+This was my resume after my last year at TI. I was sad to see it go.
+***END***
+
+***Body***
+Alex Titriku was my manager for two years at TI, but in my last year I worked under Mark Weaver. This was as I made the jump from Design Verification to Digital design. I think if I had not thought about trying analog design at the end of my time at TI I would have stayed, when filling out my internship feedback I mentioned my interest in analog. Then I missed an email for a digital design return offer, by the time I became concerned about not hearing back TI HR informed me the closest they had was analog design, and they sent me an offer.
+
+At the time I chose not to return, I was pursuing a degree in Computer Architecture which was far from digital design, not to mention a golf from analog design. I figured it would be better to work on research than analog for my career.
+
+<iframe src="/Resources/Resumes/ResumeNov2023.pdf" width="100%" height="600">
+This browser does not support PDFs. Please download the PDF to view it: Download PDF
+</iframe>
+***END***
+
+***TAGS***
+Resume
+***END***
+
+***MODTIME***
+November 11, 2023, 04:30 PM
+***END***

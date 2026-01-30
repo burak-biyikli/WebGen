@@ -1,0 +1,25 @@
+***LOC***
+resume_2020_2.html
+***END***
+
+***TITLE***
+Burak's Resume (2020-2)
+***END***
+
+***Summary***
+As of Feb. 2, 2020 this is my most recent Resume. Feel free to reach out to the contact information listed.
+***END***
+
+***Body***
+<iframe src="/Resources/Resumes/ResumeFeb2020.pdf" width="100%" height="600">
+This browser does not support PDFs. Please download the PDF to view it: Download PDF
+</iframe>
+***END***
+
+***TAGS***
+Resume
+***END***
+
+***MODTIME***
+February 02, 2020, 04:14 PM
+***END***
