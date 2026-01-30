@@ -3,7 +3,7 @@ resume_2_20.html
 ***END***
 
 ***TITLE***
-Burak's Resume
+Burak's Resume (2/2025)
 ***END***
 
 ***Summary***
@@ -14,6 +14,10 @@ This is my most recent Resume, it is accurate as of Feb. 2, 2020. Feel free to r
 <iframe src="/Resources/Resumes/ResumeJan2020.pdf" width="100%" height="600">
 This browser does not support PDFs. Please download the PDF to view it: Download PDF
 </iframe>
+***END***
+
+***TAGS***
+Resume
 ***END***
 
 ***MODTIME***
