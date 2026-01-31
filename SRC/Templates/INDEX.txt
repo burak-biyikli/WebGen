@@ -19,7 +19,7 @@
 			<h1>
 				***TITLE***
 			</h1>
-			<p>This page is autogenerataed and contains a complete list of all pages. The listings are sorted by the time the page was most recently updated. Please note that the creation date is not recorded for pages.</p>
+			<p>This site index is automatically updated to include all pages. Pages with handwritten content are sorted by their update/creation time.</p>
 		</div>
 		<br>
 		Update Date - Page Title

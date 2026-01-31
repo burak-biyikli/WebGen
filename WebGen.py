@@ -323,9 +323,15 @@ def InterpretDataSnippet(FilePath):
 	else:
 		DataSnippet["TAGSTR"] = ""
 		
-	# Deal with local
+	# Deal with LOCAL. This tag allows page-specific CSS/JS
 	if not("LOCAL" in DataSnippet):
 		DataSnippet["LOCAL"] = ""
+
+	# Deal with AUTO. This tag indicated if a page is auto-updated
+	if not("AUTO" in DataSnippet):
+		DataSnippet["AUTO"] = False
+	else:
+		DataSnippet["AUTO"] = not(DataSnippet["AUTO"].strip().lower() == "false")
 		
 	# After parsing, check for the MODTIME tag
 	if "MODTIME" in DataSnippet:
@@ -344,7 +350,16 @@ def InterpretDataSnippet(FilePath):
 
 def GenerateIndexElement(DataSnipets):
 	global GlobalSnippets
-	indexData = [ f"{Dict['MODTIMESHORT']} - <a href='/{Dict['LOC']}'>{Dict['TITLE']}</a>" for Dict in DataSnippets]
+	contentIndexData = []
+	directoryIndexData = ["<br>"]
+
+	for ds_dict in DataSnippets:
+	 	ds_str = f"{ds_dict['MODTIMESHORT']} - <a href='/{ds_dict['LOC']}'>{ds_dict['TITLE']}</a>"
+	 	if ds_dict["AUTO"]:
+	 		directoryIndexData.append(ds_str)
+	 	else:
+	 		contentIndexData.append(ds_str)
+	indexData = contentIndexData + directoryIndexData
 	GlobalSnippets["Index"] = "<br>\n".join(indexData)
 
 def GenerateTagsElement(DataSnipets):
@@ -383,7 +398,12 @@ def GenerateFeedAndRSSElements(DataSnippets: list, num_items: int = 7, max_lengt
 	global GlobalSnippets
 	feed_html = ""
 	rss_items = []
-	for i, snippet in enumerate(DataSnippets[:num_items]):
+	for i, snippet in enumerate(DataSnippets):
+
+		if len(rss_items) >= num_items:
+			break
+		elif snippet["AUTO"]:
+			continue
 		
 		# Get the body text, or an empty string if it doesn't exist
 		base_text = snippet.get("Summary","") + snippet.get("Body", "")
