@@ -24,6 +24,9 @@ This browser does not support PDFs. Please download the PDF to view it: Download
 Resume
 ***END***
 
+***JSONLD***
+***END***
+
 ***MODTIME***
 September 23, 2020, 08:02 PM
 ***END***

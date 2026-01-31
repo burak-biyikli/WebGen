@@ -9,6 +9,7 @@
 		***CSS***
 		***JS***
 		***LOCAL***
+		***JSONLD***
 	</head>
 <body>
 	<div>

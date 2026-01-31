@@ -16,7 +16,8 @@ TEMPLATES = "Templates"
 GLOBALS = "Globals"
 
 DELIMTER = "***"
-Domain = "BurakBiyikli.com"
+Domain = "burakbiyikli.com"
+DEFAULT_AUTHOR = "Burak Biyikli"
 
 RunDir = os.getcwd() #Where The Shell is when the script is run
 SaveDir = os.path.dirname(os.path.realpath(__file__)) #Saved Dir
@@ -332,6 +333,8 @@ def InterpretDataSnippet(FilePath):
 		DataSnippet["AUTO"] = False
 	else:
 		DataSnippet["AUTO"] = not(DataSnippet["AUTO"].strip().lower() == "false")
+		if "JSONLD" in DataSnippet:
+			input(f"Page {FilePath} is a directory, but has an author.")
 		
 	# After parsing, check for the MODTIME tag
 	if "MODTIME" in DataSnippet:
@@ -339,12 +342,32 @@ def InterpretDataSnippet(FilePath):
 		assert not(parsed_time is None), f"Fatal: Could not parse MODTIME in {FilePath} saw {DataSnippet['MODTIME']}"
 		DataSnippet["MODTIMESTAMP"] = parsed_time
 		DataSnippet["MODTIMESHORT"] = parsed_time.strftime('%b. %d, %Y')
+		DataSnippet["MODTIMEISO"]   = parsed_time.isoformat()
 	else:
 		mod_time = os.path.getmtime(FilePath)
 		DataSnippet["MODTIMESTAMP"] = datetime.fromtimestamp(mod_time)
 		DataSnippet["MODTIME"]      = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y, %I:%M %p')
 		DataSnippet["MODTIMESHORT"] = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y')
+		DataSnippet["MODTIMEISO"]   = parsed_time.isoformat()
 		AppendMissingTimestamp(FilePath, mod_time) # The function we discussed before
+
+	# Deal with JSONLD. This tag allows page-specific attribution
+	if not("JSONLD" in DataSnippet):
+		DataSnippet["JSONLD"] = ""
+		if DataSnippet["AUTO"] == False:
+			input(f"Page {FilePath} is not directory, but has no author.")
+	elif DataSnippet["JSONLD"].strip() == "":
+		summary_text = DataSnippet.get("Summary", DataSnippet["TITLE"])
+		page_url = ("https://" + Domain + "/" + DataSnippet["LOC"]).strip()
+		DataSnippet["JSONLD"] = "\n".join(['<script type="application/ld+json">\n{',
+			'"@context": "https://schema.org",',
+			f'"mainEntityOfPage": {{"@type": "WebPage", "@id": "{page_url}"}},',
+			'"@type": "BlogPosting",',
+			f'"headline":"{DataSnippet["TITLE"].strip()}",',
+			f'"datePublished":"{DataSnippet["MODTIMEISO"].strip()}",',
+			f'"description":"{summary_text.strip()}",',
+			f'"author":{{"@type": "Person","@id": "https://{Domain}/#person", "name": "{DEFAULT_AUTHOR}", "url":"https://{Domain}"}}', 
+		'}\n</script>\n'])
 
 	return DataSnippet
 

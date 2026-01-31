@@ -32,6 +32,9 @@ This site wasn't built by a professional web developer. It runs on a custom-buil
 
 ***END***
 
+***JSONLD***
+***END***
+
 ***MODTIME***
 August 09, 2025, 09:36 PM
 ***END***

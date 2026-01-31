@@ -130,6 +130,9 @@ Type III fun -> Not fun in the moment, not fun in hindsight, but a fun story
 
 ***END***
 
+***JSONLD***
+***END***
+
 ***MODTIME***
 January 24, 2026, 02:01 AM
 ***END***

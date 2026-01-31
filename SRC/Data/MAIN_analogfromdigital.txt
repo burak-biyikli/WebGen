@@ -62,6 +62,9 @@ Power: Your filter might limit the output impedance to a degree comparable to a 
 
 ***END***
 
+***JSONLD***
+***END***
+
 ***MODTIME***
 August 10, 2025, 01:01 AM
 ***END***
