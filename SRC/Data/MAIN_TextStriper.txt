@@ -182,7 +182,7 @@ Tools
 </script>
 ***END***
 
-***JSONLD***
+***SEO***
 ***END***
 
 ***MODTIME***

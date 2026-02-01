@@ -9,7 +9,7 @@
 		***CSS***
 		***JS***
 		***LOCAL***
-		***JSONLD***
+		***SEO***
 	</head>
 <body>
 	<div>

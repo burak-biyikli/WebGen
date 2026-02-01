@@ -97,7 +97,7 @@ The raw data collected is available for viewing <a href="https://docs.google.com
 
 ***END***
 
-***JSONLD***
+***SEO***
 ***END***
 
 ***MODTIME***

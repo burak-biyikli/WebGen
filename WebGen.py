@@ -333,7 +333,7 @@ def InterpretDataSnippet(FilePath):
 		DataSnippet["AUTO"] = False
 	else:
 		DataSnippet["AUTO"] = not(DataSnippet["AUTO"].strip().lower() == "false")
-		if "JSONLD" in DataSnippet:
+		if "SEO" in DataSnippet:
 			input(f"Page {FilePath} is a directory, but has an author.")
 		
 	# After parsing, check for the MODTIME tag
@@ -351,15 +351,15 @@ def InterpretDataSnippet(FilePath):
 		DataSnippet["MODTIMEISO"]   = parsed_time.isoformat()
 		AppendMissingTimestamp(FilePath, mod_time) # The function we discussed before
 
-	# Deal with JSONLD. This tag allows page-specific attribution
-	if not("JSONLD" in DataSnippet):
-		DataSnippet["JSONLD"] = ""
+	# Deal with SEO. This tag allows page-specific attribution and canonical links
+	if not("SEO" in DataSnippet):
+		DataSnippet["SEO"] = ""
 		if DataSnippet["AUTO"] == False:
 			input(f"Page {FilePath} is not directory, but has no author.")
-	elif DataSnippet["JSONLD"].strip() == "":
+	elif DataSnippet["SEO"].strip() == "":
 		summary_text = DataSnippet.get("Summary", DataSnippet["TITLE"])
 		page_url = ("https://" + Domain + "/" + DataSnippet["LOC"]).strip()
-		DataSnippet["JSONLD"] = "\n".join(['<script type="application/ld+json">\n{',
+		DataSnippet["SEO"] = "\n".join(['<script type="application/ld+json">\n{',
 			'"@context": "https://schema.org",',
 			f'"mainEntityOfPage": {{"@type": "WebPage", "@id": "{page_url}"}},',
 			'"@type": "BlogPosting",',
@@ -367,8 +367,8 @@ def InterpretDataSnippet(FilePath):
 			f'"datePublished":"{DataSnippet["MODTIMEISO"].strip()}",',
 			f'"description":"{summary_text.strip()}",',
 			f'"author":{{"@type": "Person","@id": "https://{Domain}/#person", "name": "{DEFAULT_AUTHOR}", "url":"https://{Domain}"}}', 
-		'}\n</script>\n'])
-
+		'}\n</script>\n',
+		f'<link rel="canonical" href="{page_url}" />'])
 	return DataSnippet
 
 def GenerateIndexElement(DataSnipets):
@@ -436,7 +436,7 @@ def GenerateFeedAndRSSElements(DataSnippets: list, num_items: int = 7, max_lengt
 		plain_text = " ".join( plain_text.split() )
 		
 		if len(plain_text) == 0:
-			preview_text = "No preview avalible for this page..."
+			preview_text = "No preview avalible for this page."
 		else:
 			preview_text = (plain_text[:(max_length-3)] + '...')
 		
@@ -455,7 +455,7 @@ def GenerateFeedAndRSSElements(DataSnippets: list, num_items: int = 7, max_lengt
 		feed_html += f"""\
 <div class="feed-item">
 	<h4><a href="/{snippet['LOC']}">{snippet['TITLE']}</a></h4>
-	<p>{preview_text}</p>
+	<p>{preview_text} <a href="/{snippet['LOC']}" style="color:#777777;">Read More</a></p>
 </div>
 """
 	# Wrap the entire output in a container

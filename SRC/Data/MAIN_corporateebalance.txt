@@ -32,7 +32,7 @@ At a quarterly meeting an engineer asked “With market-rates for talented engin
 At an all hands meeting an engineer joining virtually asks the executive hosting the meeting, “Over the last half hour, we have talked about how we can’t compromise on quality, and that we can’t compromise on the time line. Unfortunately these two things stand in opposition. We should be realistic and upfront about what the biggest priority is, so can you clarify your stance?” To which the executive responded “Usually with these things, it looks like a triangle right? You can’t have something fast, good, and cheap – you can only pick two. What I am telling you right now is I am picking two, and we will sacrifice the third thing.” To which an engineer in the audience quips “I think the third thing is work life balance.” The executive hears this comment and responds “Listen, engineering is all about trade-offs, and we have to do some real engineering here. I will trust each individual team to make the trade-offs they need to make to have this chip market ready and on time. We are all adults here, I will not hide anything from you, we all know what it will mean if this chip is a month late or can’t find a market fit. It cannot be the case that after another 100 million dollars in payroll and all the cost of production we have a chip that doesn’t work.”
 ***END***
 
-***JSONLD***
+***SEO***
 ***END***
 
 ***MODTIME***

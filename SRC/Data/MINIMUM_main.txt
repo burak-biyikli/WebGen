@@ -7,7 +7,7 @@ index.html
 Burak's Pages
 ***END***
 
-***JSONLD***
+***SEO***
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -52,6 +52,7 @@ Burak's Pages
   ]
 }
 </script>
+<link rel="canonical" href="https://burakbiyikli.com/index.html"/>
 ***END***
 
 ***Summary***

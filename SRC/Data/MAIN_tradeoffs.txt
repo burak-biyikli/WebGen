@@ -53,7 +53,7 @@ Although it is cliché, I also wish that I had made clear that engineering is ab
 I should have asked a question back, like about what would be better to do add solar panels, put a bigger motor, add more batteries. I think this would help develop the right mindset, while also giving implicit positive feedback. It also would have allowed me to tell him that choosing the best thing you can is the essence of engineering, and that sometimes 'best' is hard to define. Something like that would have made that kid's memory about more than just a robot couch.
 ***END***
 
-***JSONLD***
+***SEO***
 ***END***
 
 ***MODTIME***

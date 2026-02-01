@@ -130,7 +130,7 @@ Type III fun -> Not fun in the moment, not fun in hindsight, but a fun story
 
 ***END***
 
-***JSONLD***
+***SEO***
 ***END***
 
 ***MODTIME***
