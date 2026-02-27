@@ -4,6 +4,7 @@ import os
 import re
 import shutil
 from datetime import datetime, timezone
+from TextUtil import *
 
 GEN = "GEN"
 SRC = "SRC"
@@ -229,7 +230,7 @@ def InterpretDataSnippets(directory: str) -> list:
 		for filename in filenames:
 			if filename.endswith(".txt"):
 				file_path = os.path.join(dirpath, filename)		
-				snippet_dict = InterpretDataSnippet(file_path) # Ensure required keys exist and strip whitespace
+				snippet_dict = InterpretDataSnippet(file_path) # Ensure required keys exist and strip white space
 				for key in ["LOC", "TITLE"]:
 					assert key in snippet_dict, f"Error: Expected {key} in template file {filename}. Saw {snippet_dict}"
 					snippet_dict[key] = snippet_dict[key].strip()
@@ -266,22 +267,6 @@ def AppendMissingTimestamp(file_path: str, mod_time: float):
 		f.write(f"\n***MODTIME***\n{timestamp_str}\n***END***\n")
   
 
-# Wraps text blocks in <p> tags, ignoring blocks that look like HTML.
-# A block is any text separated by one or more blank lines (2+ \n).  
-def AutoParagraph(text: str) -> str:
-	if not text:
-		return ""
-	paragraphs = []
-	blocks = re.split(r'\n\s*\n', text.strip())
-	for block in blocks:
-		stripped_block = block.strip()
-		if stripped_block.startswith('<') or stripped_block.endswith('>'):
-			paragraphs.append(stripped_block)
-		else:
-			paragraphs.append(f"<p>{stripped_block}</p>")
-	return "\n\n".join(paragraphs)
-
-	
 def InterpretDataSnippet(FilePath):
 	DataSnippet = {}
 	with open( FilePath, "r") as DataFile:
@@ -357,7 +342,7 @@ def InterpretDataSnippet(FilePath):
 		if DataSnippet["AUTO"] == False:
 			input(f"Page {FilePath} is not directory, but has no author.")
 	elif DataSnippet["SEO"].strip() == "":
-		summary_text = DataSnippet.get("Summary", DataSnippet["TITLE"])
+		summary_text = toJSONStr(DataSnippet.get("Summary", DataSnippet["TITLE"]))
 		page_url = ("https://" + Domain + "/" + DataSnippet["LOC"]).strip()
 		DataSnippet["SEO"] = "\n".join(['<script type="application/ld+json">\n{',
 			'"@context": "https://schema.org",',
@@ -407,14 +392,6 @@ def GenerateTagsElement(DataSnipets):
 		
 	
 	GlobalSnippets["Tags"] = tags_html 
-
-
-# Removes HTML tags and comments from a string using regular expressions.
-# Will remove items similar to <b> <div> </div> and &rarr;
-def StripHTML(HTML_Text: str) -> str:	
-	cleaner = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
-	clean_text = re.sub(cleaner, '', HTML_Text)
-	return clean_text
 
 # Generates an HTML/XML feed of the most recent pages. Expects DataSnippets to be in order from most to least recent
 def GenerateFeedAndRSSElements(DataSnippets: list, num_items: int = 7, max_length: int = 255):

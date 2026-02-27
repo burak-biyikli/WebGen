@@ -8,7 +8,7 @@ Text Stripping Tool
 ***END***
 
 ***Summary***
-This is a simple tool that I made to strip HTML out of transcripts I was copying and pasting. I also ocasionally run into situations where there are many superscripts and it gets tedious to remove them all by hand. Just note that the tool is a little indiscriminate, and you might loose things if you write even simple math in the text ie "2<3, 3<=4" will be butchered by the tool. 
+This is a simple tool that I made to strip HTML out of transcripts I was copying and pasting. I also occasionally run into situations where there are many superscripts and it gets tedious to remove them all by hand. Just note that the tool is a little indiscriminate, and you might loose things if you write even simple math in the text e.g. 2<3, 3<=4 will be butchered by the tool. 
 ***END***
 
 ***TAGS***
