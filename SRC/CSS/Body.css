@@ -80,3 +80,54 @@ h4 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
   margin: 0 0;
 }
 
+
+/* 
+  Code formatting 
+*/
+code {
+  background-color: #e8e8e3; 
+  color: #333;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: Consolas, Monaco, "Andale Mono", monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: #e8e8e3;
+  color: #333;
+  padding: 1.2em 1.5em;
+  border-radius: 8px;
+  margin: 1.5em 0;
+  overflow-x: auto;
+}
+
+pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: 1em;
+}
+
+
+/* 
+  Table formatting 
+*/
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse; /* Prevents double borders */
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px 15px;
+  text-align: center;
+}
+
+th {
+  background-color: #e8e8e3;
+}

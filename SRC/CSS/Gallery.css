@@ -62,7 +62,13 @@
 }
 
 .caption-gallery {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  text-align: center;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #666;
+  margin: 0.5rem auto 2rem auto; 
+  width: 80%;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e8e8e3; 
 }

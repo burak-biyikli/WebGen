@@ -333,7 +333,7 @@ def InterpretDataSnippet(FilePath):
 		DataSnippet["MODTIMESTAMP"] = datetime.fromtimestamp(mod_time)
 		DataSnippet["MODTIME"]      = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y, %I:%M %p')
 		DataSnippet["MODTIMESHORT"] = datetime.fromtimestamp(mod_time).strftime('%B %d, %Y')
-		DataSnippet["MODTIMEISO"]   = parsed_time.isoformat()
+		DataSnippet["MODTIMEISO"]   = datetime.fromtimestamp(mod_time).isoformat()
 		AppendMissingTimestamp(FilePath, mod_time) # The function we discussed before
 
 	# Deal with SEO. This tag allows page-specific attribution and canonical links
