@@ -58,15 +58,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		//For each image within gallery
 		const images = gallery.querySelectorAll('img');
 		const sep_width = (images.length + 1) * 2; //Amount of gap in percent 
-		const def_width = Math.min( 60, (100 - sep_width)/images.length) + "%"
-		//console.log("Found default width of: "def_width + " for " + gidx);
+		const max_width = Math.min( 75, (100 - sep_width)/images.length) + "%"
+		//console.log("Found default width of: "max_width + " for " + gidx);
 		
 		images.forEach((img, iidx) => {
 			
 			//Make each image appear clickable
 			img.style.cursor = 'pointer';
 			
-			img.style.width = img.style.width == "" ? def_width : img.style.width; 
+			img.style.maxWidth = max_width;
 			
 			//On click:
 			//	add the images from the current div to the MainGallery, set the index, then show the Main Gallery

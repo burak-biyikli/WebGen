@@ -57,8 +57,14 @@
 }
 
 .image-gallery img{
-  width: 80%; 
   height: auto;
+  width: 75%; /*placeholder while JS loads, intended to be overwritten by Gallery.js*/
+  transition: transform 0.2s ease;
+}
+
+.image-gallery img:hover{
+  transform: scale(1.01);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .caption-gallery {

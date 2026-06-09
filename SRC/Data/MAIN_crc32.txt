@@ -80,7 +80,7 @@ This polynomial representation ties into how this is a hash function. Hash funct
 
 An example of polynomial division is shown below. An interesting thing to note, is that although we are subtracting from the original value, the net result is either the term exists or doesn't and so 0 - 1 = 1 in GF(2). Mechanically, it is also useful to note how subtracting in each row always results in the most significant term of the remainder being removed, and set bits in the polynomial divisor result in the coefficients being flipped. This propagation of flipping bits causes a single bit error at the beginning of the message to propagate (Avalanche) through the whole message. A weakness (That we will find to be useful) is that any number of zeros at the start of a message will result in a collision, and the algorithm is simple and fast enough to make arbitrary hash generation possible.
 
-One issue with just taking a remainder is that changes in the 32 least significant bit are only XORed into the output instead of being given a chance to avalanche. The simple solution that CRC32 takes is to add 32 bits of padding to the right of the data, so that every bit gets an equal chance to cause chaos. An exercise left to the reader is to consider the difference in remainder when dividing 0b0001000101, 0b1000100, 0b1100101, and 0b1100101000 by 0b1011 in contrast to the division shown below of 0b1000101 by 0b1011.
+One issue with just taking a remainder is that changes in the 32 least significant bit are only XORed into the output instead of being given a chance to avalanche. The simple solution that CRC32 takes is to add 32 bits of padding to the right of the data, so that every bit gets an equal chance to cause chaos. An exercise left to the reader is to consider the difference in remainder when dividing 0b0001000101, 0b1000100, 0b1100101, and 0b1100101000 by 0b1011 in contrast to the division shown below of 0b1000101 by 0b1011. 
 
 <div class="image-gallery">
   <img src="Resources/2026/crc32/gf2_poly_div_0.png" alt="Dividing 0b1000101 by 0b1011 in GF(2) step 0" style="width: 50%; height: auto;">
@@ -312,6 +312,8 @@ The solution to both weaknesses is to simply move them to places where they are 
 To some degree setting the initial value of the hash to 0x42 only shifts the problem. If we happen to have the value 0x42 as the first byte, and we XOR in 0x42 from the hash, we will still not be sensitive to the length of a potential following block of zeros. The benefit is what the hash is vulnerable to is less common than the original vulnerability. it is for this reason that many CRC32 implementations set the initial hash value to 0xFFFF'FFFF. 
 
 Because we XOR values at the start of the CRC32, sometimes it is convenient to do the same thing at the end of a CRC. This aids in chaining functions for library writers as you might know the function you are calling will have an initial hash value you don't want to use. It is also common to need to XOR the output to match an existing standard. It is often a desirable result that the CRC32 return a nonzero hash, and hashing zeros is surprisingly common (hardware padding, empty buffers, etc.). Because of this some standards have similarly moved this problem elsewhere by having a final XOR to perform at the end. If we want our hashes to match theirs, we will have to do the same behavior.
+
+P.S. You can access the <a href="https://docs.google.com/presentation/d/1T1Iw-W6CgZY-nWMPTPOELHk1Yy2UPn0flM4pXuFy9Rs/edit?usp=sharing"> Slides for the diagrams here </a>
 
 ***END***
 
