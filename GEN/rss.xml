@@ -10,8 +10,15 @@
                 <generator>Web Gen</generator>
 
 		<atom:link href="http://burakbiyikli.com/rss.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Wed, 29 Apr 2026 22:38:00 GMT</lastBuildDate>
-		<pubDate>Wed, 29 Apr 2026 22:38:00 GMT</pubDate>
+		<lastBuildDate>Sun, 12 Jul 2026 21:30:00 GMT</lastBuildDate>
+		<pubDate>Sun, 12 Jul 2026 21:30:00 GMT</pubDate>
+		<item>
+			<title>Disaggregating Away The Stack's Coherence Tax With DCDS-ISA</title>
+			<link>http://burakbiyikli.com/dual_stacks.html</link>
+			<guid>http://burakbiyikli.com/dual_stacks.html</guid>
+			<description>The stack is mainly used for thread-private operations, yet modern microarchitectures are must treat stack accesses like interprocess communication just in case threads share data to mantain correctness. This means the Load/Store Unit wastes entries ch...</description>
+			<pubDate>Sun, 12 Jul 2026 21:30:00 CST</pubDate>
+		</item>
 		<item>
 			<title>Beyond Bit-by-Bit: The Math Behind Fast CRC32</title>
 			<link>http://burakbiyikli.com/crc32.html</link>
@@ -53,13 +60,6 @@
 			<guid>http://burakbiyikli.com/corporateebalance.html</guid>
 			<description>Being clear about what you mean is a skill, but being clear while avoiding accountability for the consequences is a profession Everybody knows that lying is wrong. Or at the very least, that lying too much will get you in trouble. Everybody also knows ...</description>
 			<pubDate>Mon, 18 Aug 2025 01:03:00 CST</pubDate>
-		</item>
-		<item>
-			<title>Text Stripping Tool</title>
-			<link>http://burakbiyikli.com/textstripper.html</link>
-			<guid>http://burakbiyikli.com/textstripper.html</guid>
-			<description>This is a simple tool that I made to strip HTML out of transcripts I was copying and pasting. I also occasionally run into situations where there are many superscripts and it gets tedious to remove them all by hand. Just note that the tool is a little ...</description>
-			<pubDate>Fri, 15 Aug 2025 22:35:00 CST</pubDate>
 		</item>
         </channel>
 </rss>

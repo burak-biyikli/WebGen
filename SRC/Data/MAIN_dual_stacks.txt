@@ -1,0 +1,96 @@
+***LOC***
+dual_stacks.html
+***END***
+
+***TITLE***
+Disaggregating Away The Stack's Coherence Tax With DCDS-ISA
+***END***
+
+***TAGS***
+Projects, Tech
+***END***
+
+***Summary***
+The stack is mainly used for thread-private operations, yet modern microarchitectures are must treat stack accesses like interprocess communication just in case threads share data to mantain correctness. This means the Load/Store Unit wastes entries checking for rare conflicts, and the cache burns power snooping for invalidations that will never come. This post explores the Dual Coherence-Domain Stack ISA (DCDS-ISA)—a hardware-software codesign that disaggregates the stack to reclaim execution bandwidth, backed by DynamoRIO profiling and gem5 simulations.
+***END***
+
+***Body***
+
+I still remember the first time I felt like CPUs were highly optimized marvels. I had just finished reading <a href="https://www.usenix.org/system/files/1309_14-17_mickens.pdf">The Slow Winter</a> by James Mickens, which is a funny short story about the history of CPUs. It details the experience of a father who felt the wind was at his back during his time as a CPU microarchitect, watching his son John join a different field than the one he himself is leaving. It captures that at one point it felt like physics helped you every year, but now there are no easy wins left. In CPU design if you make something 10-20X faster it is likely you were doing something wrong before, but if you make something 1-2% faster it was probably a hard fought optimization.
+
+Physics makes it hard to just increase frequency. Adding more functional units to a core yields diminishing returns; a <a href="https://arxiv.org/pdf/1906.08170">2019 publication from Intel</a> demonstrates that scaling to a 32-wide core yields a <2X performance gain without proportional improvements in branch prediction accuracy. But even then, making better guesses is hard. Implementing smarter predictors fights back when it comes against cycle time and prediction latency. The operating point of a modern core is a balancing act between a long list of applications with different demands.
+
+<div class="image-gallery">
+  <img src="Resources/2026/dual_stacks/00_branchprediction.png" alt="Showcases the limited performance gains by wider cores without a larger branch predictor. Less than 2X perf gain with a 32 wide core." style="width: 50%;">
+</div>
+
+Two additional ways of increasing performance are aggregation and disaggregation. Both of these deal with recognizing limited resources and using them more effectively. In aggregation, we recognize something is expensive, and we try to pay the costs of the expensive thing once. A classic example is macro-op fusion, rename can be expensive in the core and if two instructions can be combined to save a rename slot you only have to pay the cost once. Disaggregation is similar: we separate the expensive from the cheap to make the expensive resource go further. An example of this is virtual register IDs. In an out-of-order (OoO) design, we might use a physical register ID to manage instruction dependencies and physical register allocation. The actual registers are expensive, but the IDs are cheap. By splitting the two, we can increase our OoO window, extract more ILP, and use our physical registers only as needed for instructions that are actually on the critical path.
+
+When we disaggregate the cheap from the expensive, we get an opportunity to increase the effective size of structures. This is relevant for getting the maximum performance as we might not be able to make a structure any larger when considering timing/frequency constraints. This can also be relevant for efficiency and area if the cost of the disaggregation is small relative to how much larger it makes the limited structure behave.
+
+It is with that lens I was recently thinking about the stack after preparing for interviews with a friend. The stack serves many distinct purposes stemming from its efficiency over the heap. While the heap explicitly manages if the memory is in use or not, the stack is a positional structure tied to the current execution state. If you want to put something on the stack, there is one and only one place to put it. The downside of the stack is that there is only one time to remove values from it. If you are doing something related to the function you are in, its likely better to use the stack. If you are doing something that is not tied to function scope, its likely better to use the heap. Because of this distinction, the stack is overloaded with diverse responsibilities:
+
+<ul>
+  <li> Provides memory space for function scoped variables </li>
+  <li> Implicitly manages the lifetime of function scoped variables </li>
+  <li> Manages the call graph, including function stack frames, and handling/unwinding on exceptions </li>
+  <li> Passing parameters to, and large data structures from, functions </li>
+  <li> Provides a convenient place for architectural state on context switches </li>
+  <li> From an ISA view, provides notionally 'unlimited storage' for spills of architectural state </li>
+  <li> Provides unique memory per thread/process for independent execution </li>
+  <li> Provides memory used for inter-thread communication via local variables </li>
+</ul>
+
+Many of these responsibilities are strictly private. Additionally, using the stack for inter-process communication (IPC) might seem odd, but it does occur—for example, when an atomic lock or shared variable is declared in a function scope before spinning up a thread pool. I wanted to collect empirical data instead of reading kernels to estimate how often this happens. 
+
+I built a custom trace analyzer using DynamoRIO to profile stack memory access patterns for multithreaded workloads. The tool mantains a highly optimized two-level shadow memory system to track ownership at the byte-level. The first layer quickly determines if a byte is shared. The second layer is engaged on the 'slow path' when the L1 reports sharing. Because the tool works entirely at runtime, it cannot use future knowledge to determine if a pop is truly private until its corresponding push occurs. If sharing does happen we need to annotate the push, and update all variants of its sharing metrics. Tracing the PARSEC and GAPBS workloads, the tool accurately categorizes stack sharing into four buckets:
+
+<ul>
+  <li> Provably Private: Stack data accessed exclusively by the allocating thread. </li>
+  <li> Strictly IPC (Instance Level): A specific address allocated by Thread A and accessed by Thread B. </li>
+  <li> Possibly IPC (History-Based): Tracked via a Global History Register (GHR) context hash to isolate specific call paths and reduce false positives. </li>
+  <li> Possibly IPC (Non-History): Any instance of a PC involved in IPC taints all instances of that PC. </li>
+</ul>
+
+The data collected by the tool shows that strict sharing occurs in <1% of stack accesses, rendering the bar visually negligible in the charts below. When evaluating this strict access rate, it is worth considering that this data is trace-based. Since this strict metric relies on what actually happened in execution, it will systematically undercount the amount of intended sharing motivating the more expansive history and non-history metrics. I consider the possiblly IPC metrics to be over counts, which I partially attribute to the compiler reusing stack variables for multiple purposes. If variables in a function do not have overlaping lifetimes, the compiler is free to reuse the memory. Consider a function for a kernel that depending on the input size may or may not use multiple threads, the same push allocating a variable can be use differently depending on later control flow. This over count is only partially mitigated by the history metric over the non-history metric.
+
+<div class="image-gallery">
+  <img src="Resources/2026/dual_stacks/01_IPC_trace.svg" alt="For GAPBS, shows the <1% strict IPC metric, and bounding limits for history and non-history IPC metrics" style="width: 50%;">
+  <img src="Resources/2026/dual_stacks/02_IPC_trace.svg" alt="For PARSEC, Shows the near zero strict IPC metric, and typically small history and non history IPC metrics" style="width: 50%;">
+</div>
+
+The fact that so little truly public work is done using the stack is notable. Even in these multithreaded benchmarks, we see little sharing in the stack. CPU designers have taken advantage of this behavior to implement Memory Renaming which is targeted at/more aggressive with stack accesses. When we do memory renaming, we allow the CPU to makes assumptions about the data dependency between stores and loads. These assumptions in turn mean the CPU can immediately move data from a store to the load to reduce the execution latency. Because this is an assumption, however, the CPU must still verify the optimization by executing the underlying store and load natively. Since sharing that violates this assumption occurs in <1% of cases, the benefit of reduced latency across many successful forwards outweighs relatively expensive pipeline flush penalty. 
+
+As we saw earlier however the stack is rarely used for inter-thread comunication, and the stack semantics can make it hard for the CPU to make aggressive assumptions about the stack. This could be solved by indicating to the hardware about if stack accesses are actually private. If software is willing to promise the hardware that some accesses are private, we can actually go beyond the benifits of 0 cycle latency forwards like offered by memory renaming. 
+
+Like mentioned before, loads and stores undergoing renaming still require an entry in the Load-Store Unit (LSU), the LSU check if forwarding needs to occur between stores and loads and mantains the consistency model of the CPU. The consistency model is the set of restrictions on reordering (As most CPUs are internally OoO) the CPU follows so that the programer and software can reason about accesses to memory. Most programmers would be unhappy if storing to a variable and immediately loading it returned stale data. Yet, if the store's data isn't ready, the most natural thing for an OoO CPU to do is to reorder the dependent load ahead of the store. In short, the LSU's job is to prevent cases like this. The large amount of cases the LSU has to manage limits the maximum size of its structures, as we need to check loads and stores against all outstanding memory accesses. If the LSU runs out of space, we start to expose latency. If hardware is informed by software that accesses are private, these accesses can be handled separately, increasing the effective capacity of the LSU.
+
+One way that software can indicate stack accesses are private, is by simply having two stacks. In the linked white paper about a <a href="https://docs.google.com/document/d/1xU46JEdTdoexIxS2w_WaqxyVos7Rbfyw/edit?usp=sharing&ouid=106695353068532810924&rtpof=true&sd=true"> Dual Coherence-Domain Stack ISA </a>, we see the potential for benefits like:
+<ul>
+  <li>Reduced latency of stack operations </li>
+  <li>Reduced use of limited LSU entries </li>
+  <li>Reduction of LD/ST bandwidth usage </li>
+  <li>Ability to trade register pressure for increased bandwidth in some workloads </li>
+  <li>Reduced cache area </li>
+  <li>Reduced coherence traffic and snooping </li>
+  <li>Compilers can expose more parallelism </li>
+</ul>
+
+
+A true DCDS-ISA implementation requires invasive changes across the entire software stack. The OS would need changes to how it handles threads and pages. The compiler would need to more aggressively consider register promotion and change its register allocation model. The application should have manual annotation of structures for key kernels, particularly when compiler can't prove private vs public automatically. Because I did not have the time to implement these changes, I modeled a microarchitectural proxy in the gem5 simulator. 
+
+Using the data from the DynamoRIO traces, I scaled the LSU structure sizes to reflect a core unburdened by private stack traffic. Furthermore, I implemented a Speculative Memory Renaming engine at the Rename stage to bypass standard dependencies. Together, these modifications effectively proxy the performance bounds of a 0-cycle, coherence-exempt private stack. A preview of the performance changes by implementing this Dual Coherence-Domain Stack ISA is shown below. For more information, read the linked <a href="https://docs.google.com/document/d/1xU46JEdTdoexIxS2w_WaqxyVos7Rbfyw/edit?usp=sharing&ouid=106695353068532810924&rtpof=true&sd=true">white paper</a>, or view the sorce code on <a href="https://github.com/burak-biyikli/dual_stacks">GitHub</a>!
+
+<div class="image-gallery">
+  <img src="Resources/2026/dual_stacks/03_gem5_results.svg" alt="For subset of GAPS shows IPC uplift of 3-5%" style="width: 50%;">
+  <img src="Resources/2026/dual_stacks/04_gem5_results.png" alt="For microbenchmarks shows perf uplift of 2%" style="width: 50%;">
+</div>
+
+***END***
+
+***SEO***
+***END***
+
+***MODTIME***
+July  12, 2026, 9:30 PM
+***END***
